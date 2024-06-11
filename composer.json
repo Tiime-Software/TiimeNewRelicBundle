@@ -28,13 +28,10 @@
         "monolog/monolog": "^3.0"
     },
     "autoload": {
-        "psr-4": { "Ekino\\NewRelicBundle\\": "" },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+        "psr-4": { "Ekino\\NewRelicBundle\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Ekino\\NewRelicBundle\\Tests\\": "Tests/" }
+        "psr-4": { "Ekino\\NewRelicBundle\\Tests\\": "tests/" }
     },
     "extra": {
         "branch-alias": {
