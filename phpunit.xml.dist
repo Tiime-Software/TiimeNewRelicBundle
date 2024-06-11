@@ -12,19 +12,9 @@
     bootstrap="vendor/autoload.php"
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
-  <coverage>
-    <include>
-      <directory>./</directory>
-    </include>
-    <exclude>
-      <directory>./Tests/</directory>
-      <directory>./Resources/</directory>
-      <directory>./vendor/</directory>
-    </exclude>
-  </coverage>
   <testsuites>
     <testsuite name="Ekino New Relic Test Suite">
-      <directory>./Tests</directory>
+      <directory>./tests</directory>
     </testsuite>
   </testsuites>
 </phpunit>
