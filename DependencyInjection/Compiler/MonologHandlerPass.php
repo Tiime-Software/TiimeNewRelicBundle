@@ -53,7 +53,10 @@ class MonologHandlerPass implements CompilerPassInterface
         }
     }
 
-    private function getChannels(ContainerBuilder $container)
+    /**
+     * @return string[]
+     */
+    private function getChannels(ContainerBuilder $container): array
     {
         $channels = [];
         foreach ($container->getDefinitions() as $id => $definition) {
@@ -61,7 +64,7 @@ class MonologHandlerPass implements CompilerPassInterface
                 $channels[] = 'app';
                 continue;
             }
-            if (0 === strpos($id, 'monolog.logger.')) {
+            if (str_starts_with($id, 'monolog.logger.')) {
                 $channels[] = substr($id, 15);
             }
         }

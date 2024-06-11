@@ -51,9 +51,9 @@ class RequestListener implements EventSubscriberInterface
     {
         return [
             KernelEvents::REQUEST => [
-                 ['setApplicationName', 255],
-                 ['setIgnoreTransaction', 31],
-                 ['setTransactionName', -10],
+                ['setApplicationName', 255],
+                ['setIgnoreTransaction', 31],
+                ['setTransactionName', -10],
             ],
         ];
     }
@@ -75,7 +75,7 @@ class RequestListener implements EventSubscriberInterface
         }
 
         // Set application name if different from ini configuration
-        if ($appName !== ini_get('newrelic.appname')) {
+        if ($appName !== \ini_get('newrelic.appname')) {
             $this->interactor->setApplicationName($appName, $this->config->getLicenseKey(), $this->config->getXmit());
         }
     }
@@ -112,7 +112,7 @@ class RequestListener implements EventSubscriberInterface
      */
     private function isEventValid(KernelRequestEvent $event): bool
     {
-        return HttpKernelInterface::MASTER_REQUEST === $event->getRequestType();
+        return HttpKernelInterface::MAIN_REQUEST === $event->getRequestType();
     }
 }
 

@@ -44,7 +44,7 @@ class CommandListenerTest extends TestCase
             new InputOption('foo'),
             new InputOption('foobar', 'fb', InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY),
             new InputArgument('name', InputArgument::REQUIRED),
-         ]);
+        ]);
 
         $interactor = $this->getMockBuilder(NewRelicInteractorInterface::class)->getMock();
         $interactor->expects($this->once())->method('setTransactionName')->with($this->equalTo('test:newrelic'));

@@ -79,7 +79,7 @@ class NotifyDeploymentCommand extends Command
             switch ($response['status']) {
                 case 200:
                 case 201:
-                    $output->writeLn(sprintf("Recorded deployment to '%s' (%s)", $appName, ($input->getOption('description') ?: date('r'))));
+                    $output->writeLn(sprintf("Recorded deployment to '%s' (%s)", $appName, $input->getOption('description') ?: date('r')));
                     break;
                 case 403:
                     $output->writeLn(sprintf("<error>Deployment not recorded to '%s': API key invalid</error>", $appName));
@@ -153,19 +153,19 @@ class NotifyDeploymentCommand extends Command
             'deployment[app_name]' => $appName,
         ];
 
-        if (($user = $input->getOption('user'))) {
+        if ($user = $input->getOption('user')) {
             $content_array['deployment[user]'] = $user;
         }
 
-        if (($revision = $input->getOption('revision'))) {
+        if ($revision = $input->getOption('revision')) {
             $content_array['deployment[revision]'] = $revision;
         }
 
-        if (($changelog = $input->getOption('changelog'))) {
+        if ($changelog = $input->getOption('changelog')) {
             $content_array['deployment[changelog]'] = $changelog;
         }
 
-        if (($description = $input->getOption('description'))) {
+        if ($description = $input->getOption('description')) {
             $content_array['deployment[description]'] = $description;
         }
 

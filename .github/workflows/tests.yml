@@ -1,0 +1,52 @@
+on: [pull_request]
+name: PHPUnit
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: Ubuntu-20.04
+
+    strategy:
+      matrix:
+        include:
+          # Lowest Deps
+          - php: 8.2
+            symfony-require: 5.4.*
+            composer-flags: '--prefer-stable --prefer-lowest'
+          # LTS with latest stable PHP
+          - php: 8.2
+            symfony-require: 6.4.*
+            composer-flags: '--prefer-stable'
+          # Active release
+          - php: 8.3
+            symfony-require: 7.1.*
+            composer-flags: '--prefer-stable --ignore-platform-req=php+'
+          # Development release
+          - php: nightly
+            symfony-require: 7.1.*@dev
+            composer-flags: '--ignore-platform-req=php+'
+            stability: dev
+            can-fail: true
+      fail-fast: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Configure Composer minimum stability
+        if: matrix.stability
+        run: composer config minimum-stability ${{ matrix.stability }}
+
+      - name: Install dependencies
+        env:
+          SYMFONY_REQUIRE: ${{ matrix.symfony-require }}
+        run: composer update ${{ matrix.composer-flags }} --no-interaction --no-progress --optimize-autoloader
+
+      - name: Run PHPUnit
+        run: vendor/bin/simple-phpunit

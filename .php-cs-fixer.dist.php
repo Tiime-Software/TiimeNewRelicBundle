@@ -10,6 +10,7 @@ file that was distributed with this source code.
 EOF;
 
 return (new PhpCsFixer\Config())
+    ->setParallelConfig(PhpCsFixer\Runner\Parallel\ParallelConfigFactory::detect())
     ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
