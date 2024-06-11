@@ -30,7 +30,7 @@ class AdaptiveInteractor implements NewRelicInteractorInterface
         $this->interactor = \extension_loaded('newrelic') ? $real : $fake;
     }
 
-    public function setApplicationName(string $name, string $license = null, bool $xmit = false): bool
+    public function setApplicationName(string $name, ?string $license = null, bool $xmit = false): bool
     {
         return $this->interactor->setApplicationName($name, $license, $xmit);
     }
@@ -75,7 +75,7 @@ class AdaptiveInteractor implements NewRelicInteractorInterface
         return $this->interactor->disableAutoRUM();
     }
 
-    public function noticeThrowable(\Throwable $e, string $message = null): void
+    public function noticeThrowable(\Throwable $e, ?string $message = null): void
     {
         $this->interactor->noticeThrowable($e, $message);
     }
@@ -83,9 +83,9 @@ class AdaptiveInteractor implements NewRelicInteractorInterface
     public function noticeError(
         int $errno,
         string $errstr,
-        string $errfile = null,
-        int $errline = null,
-        string $errcontext = null
+        ?string $errfile = null,
+        ?int $errline = null,
+        ?string $errcontext = null
     ): void {
         $this->interactor->noticeError($errno, $errstr, $errfile, $errline, $errcontext);
     }
@@ -100,7 +100,7 @@ class AdaptiveInteractor implements NewRelicInteractorInterface
         $this->interactor->disableBackgroundJob();
     }
 
-    public function startTransaction(string $name = null, string $license = null): bool
+    public function startTransaction(?string $name = null, ?string $license = null): bool
     {
         return $this->interactor->startTransaction($name, $license);
     }

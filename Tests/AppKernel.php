@@ -61,18 +61,12 @@ class AppKernel extends Kernel
         return $this->fakedProjectDir;
     }
 
-    /**
-     * @param string|null $rootDir
-     */
-    public function setRootDir($rootDir)
+    public function setRootDir(?string $rootDir): void
     {
         $this->rootDir = $rootDir;
     }
 
-    /**
-     * @param string|null $projectDir
-     */
-    public function setProjectDir($projectDir)
+    public function setProjectDir(?string $projectDir): void
     {
         $this->fakedProjectDir = $projectDir;
     }
@@ -89,9 +83,9 @@ class AppKernel extends Kernel
      * (From MicroKernelTrait)
      * {@inheritdoc}
      */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load(function (ContainerBuilder $container) {
+        $loader->load(function (ContainerBuilder $container): void {
             $container->loadFromExtension('framework', [
                 'secret' => 'test',
                 'router' => [
@@ -127,20 +121,17 @@ class AppKernel extends Kernel
      *
      * @internal
      */
-    public function loadRoutes(LoaderInterface $loader)
+    public function loadRoutes(LoaderInterface $loader): RouteCollection
     {
         return new RouteCollection();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function buildContainer(): ContainerBuilder
     {
         $container = parent::buildContainer();
 
         $container->addCompilerPass(new class() implements CompilerPassInterface {
-            public function process(ContainerBuilder $container)
+            public function process(ContainerBuilder $container): void
             {
                 foreach ($container->getDefinitions() as $id => $definition) {
                     if (preg_match('|Ekino.*|i', $id)) {

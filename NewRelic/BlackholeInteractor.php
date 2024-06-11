@@ -20,7 +20,7 @@ namespace Ekino\NewRelicBundle\NewRelic;
  */
 class BlackholeInteractor implements NewRelicInteractorInterface
 {
-    public function setApplicationName(string $name, string $license = null, bool $xmit = false): bool
+    public function setApplicationName(string $name, ?string $license = null, bool $xmit = false): bool
     {
         return true;
     }
@@ -63,16 +63,16 @@ class BlackholeInteractor implements NewRelicInteractorInterface
         return true;
     }
 
-    public function noticeThrowable(\Throwable $e, string $message = null): void
+    public function noticeThrowable(\Throwable $e, ?string $message = null): void
     {
     }
 
     public function noticeError(
         int $errno,
         string $errstr,
-        string $errfile = null,
-        int $errline = null,
-        string $errcontext = null
+        ?string $errfile = null,
+        ?int $errline = null,
+        ?string $errcontext = null
     ): void {
     }
 
@@ -84,7 +84,7 @@ class BlackholeInteractor implements NewRelicInteractorInterface
     {
     }
 
-    public function startTransaction(string $name = null, string $license = null): bool
+    public function startTransaction(?string $name = null, ?string $license = null): bool
     {
         return true;
     }

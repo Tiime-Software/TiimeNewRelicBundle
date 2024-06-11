@@ -21,12 +21,12 @@ use PHPUnit\Framework\TestCase;
 class NewRelicExtensionTest extends TestCase
 {
     /**
-     * @var \Ekino\NewRelicBundle\NewRelic\Config
+     * @var Config
      */
     private $newRelic;
 
     /**
-     * @var \Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface
+     * @var NewRelicInteractorInterface
      */
     private $interactor;
 

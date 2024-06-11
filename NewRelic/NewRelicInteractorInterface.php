@@ -18,9 +18,9 @@ namespace Ekino\NewRelicBundle\NewRelic;
  *
  * @method array getTraceMetadata()
  * @method array getLinkingMetadata()
- * @method bool isSampled()
- * @method void insertDistributedTracingHeaders(array &$headers)
- * @method void acceptDistributedTraceHeaders(array $headers, string $transportType = 'HTTP')
+ * @method bool  isSampled()
+ * @method void  insertDistributedTracingHeaders(array &$headers)
+ * @method void  acceptDistributedTraceHeaders(array $headers, string $transportType = 'HTTP')
  */
 interface NewRelicInteractorInterface
 {
@@ -29,7 +29,7 @@ interface NewRelicInteractorInterface
      *
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_set_appname}
      */
-    public function setApplicationName(string $name, string $license = null, bool $xmit = false): bool;
+    public function setApplicationName(string $name, ?string $license = null, bool $xmit = false): bool;
 
     /**
      * Set custom name for current transaction.
@@ -93,12 +93,12 @@ interface NewRelicInteractorInterface
      *
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_notice_error}
      */
-    public function noticeThrowable(\Throwable $e, string $message = null): void;
+    public function noticeThrowable(\Throwable $e, ?string $message = null): void;
 
     /**
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_notice_error}.
      */
-    public function noticeError(int $errno, string $errstr, string $errfile = null, int $errline = null, string $errcontext = null): void;
+    public function noticeError(int $errno, string $errstr, ?string $errfile = null, ?int $errline = null, ?string $errcontext = null): void;
 
     /**
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_background_job}.
@@ -115,7 +115,7 @@ interface NewRelicInteractorInterface
      *
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_start_transaction}
      */
-    public function startTransaction(string $name = null, string $license = null): bool;
+    public function startTransaction(?string $name = null, ?string $license = null): bool;
 
     /**
      * Stop instrumenting the current transaction immediately.

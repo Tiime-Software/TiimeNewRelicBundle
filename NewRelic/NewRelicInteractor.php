@@ -15,7 +15,7 @@ namespace Ekino\NewRelicBundle\NewRelic;
 
 class NewRelicInteractor implements NewRelicInteractorInterface
 {
-    public function setApplicationName(string $name, string $license = null, bool $xmit = false): bool
+    public function setApplicationName(string $name, ?string $license = null, bool $xmit = false): bool
     {
         return newrelic_set_appname($name, $license, $xmit);
     }
@@ -60,12 +60,12 @@ class NewRelicInteractor implements NewRelicInteractorInterface
         return newrelic_disable_autorum();
     }
 
-    public function noticeError(int $errno, string $errstr, string $errfile = null, int $errline = null, string $errcontext = null): void
+    public function noticeError(int $errno, string $errstr, ?string $errfile = null, ?int $errline = null, ?string $errcontext = null): void
     {
         newrelic_notice_error($errno, $errstr, $errfile, $errline, $errcontext);
     }
 
-    public function noticeThrowable(\Throwable $e, string $message = null): void
+    public function noticeThrowable(\Throwable $e, ?string $message = null): void
     {
         newrelic_notice_error($message ?: $e->getMessage(), $e);
     }
@@ -85,10 +85,10 @@ class NewRelicInteractor implements NewRelicInteractorInterface
         return newrelic_end_transaction($ignore);
     }
 
-    public function startTransaction(string $name = null, string $license = null): bool
+    public function startTransaction(?string $name = null, ?string $license = null): bool
     {
         if (null === $name) {
-            $name = ini_get('newrelic.appname');
+            $name = \ini_get('newrelic.appname');
         }
 
         if (null === $license) {
@@ -130,7 +130,7 @@ class NewRelicInteractor implements NewRelicInteractorInterface
 
     public function getTraceMetadata(): array
     {
-        if (!function_exists('newrelic_get_trace_metadata')) {
+        if (!\function_exists('newrelic_get_trace_metadata')) {
             throw new \BadMethodCallException('You need the "newrelic" extension version 9.3 or higher to use this method');
         }
 
@@ -139,7 +139,7 @@ class NewRelicInteractor implements NewRelicInteractorInterface
 
     public function getLinkingMetadata(): array
     {
-        if (!function_exists('newrelic_get_linking_metadata')) {
+        if (!\function_exists('newrelic_get_linking_metadata')) {
             throw new \BadMethodCallException('You need the "newrelic" extension version 9.3 or higher to use this method');
         }
 
@@ -148,7 +148,7 @@ class NewRelicInteractor implements NewRelicInteractorInterface
 
     public function isSampled(): bool
     {
-        if (!function_exists('newrelic_is_sampled')) {
+        if (!\function_exists('newrelic_is_sampled')) {
             throw new \BadMethodCallException('You need the "newrelic" extension version 9.3 or higher to use this method');
         }
 
@@ -157,7 +157,7 @@ class NewRelicInteractor implements NewRelicInteractorInterface
 
     public function insertDistributedTracingHeaders(array &$headers): void
     {
-        if (!function_exists('newrelic_insert_distributed_trace_headers')) {
+        if (!\function_exists('newrelic_insert_distributed_trace_headers')) {
             throw new \BadMethodCallException('You need the "newrelic" extension version 9.8 or higher to use this method');
         }
 
@@ -166,7 +166,7 @@ class NewRelicInteractor implements NewRelicInteractorInterface
 
     public function acceptDistributedTraceHeaders(array $headers, string $transportType = 'HTTP'): void
     {
-        if (!function_exists('newrelic_accept_distributed_trace_headers')) {
+        if (!\function_exists('newrelic_accept_distributed_trace_headers')) {
             throw new \BadMethodCallException('You need the "newrelic" extension version 9.8 or higher to use this method');
         }
 

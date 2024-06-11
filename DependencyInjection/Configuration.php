@@ -132,7 +132,7 @@ class Configuration implements ConfigurationInterface
 
                                     $elements = [];
                                     foreach ($v['elements'] as $element) {
-                                        if (0 === strpos($element, '!')) {
+                                        if (str_starts_with($element, '!')) {
                                             if (false === $isExclusive) {
                                                 throw new InvalidConfigurationException('Cannot combine exclusive/inclusive definitions in channels list.');
                                             }

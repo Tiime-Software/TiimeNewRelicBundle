@@ -21,13 +21,13 @@ class LoggingInteractorDecorator implements NewRelicInteractorInterface
     private $interactor;
     private $logger;
 
-    public function __construct(NewRelicInteractorInterface $interactor, LoggerInterface $logger = null)
+    public function __construct(NewRelicInteractorInterface $interactor, ?LoggerInterface $logger = null)
     {
         $this->interactor = $interactor;
         $this->logger = $logger ?? new NullLogger();
     }
 
-    public function setApplicationName(string $name, string $license = null, bool $xmit = false): bool
+    public function setApplicationName(string $name, ?string $license = null, bool $xmit = false): bool
     {
         $this->logger->debug('Setting New Relic Application name to {name}', ['name' => $name]);
 
@@ -91,9 +91,9 @@ class LoggingInteractorDecorator implements NewRelicInteractorInterface
     public function noticeError(
         int $errno,
         string $errstr,
-        string $errfile = null,
-        int $errline = null,
-        string $errcontext = null
+        ?string $errfile = null,
+        ?int $errline = null,
+        ?string $errcontext = null
     ): void {
         $this->logger->debug('Sending notice error to New Relic', [
             'error_code' => $errno,
@@ -105,7 +105,7 @@ class LoggingInteractorDecorator implements NewRelicInteractorInterface
         $this->interactor->noticeError($errno, $errstr, $errfile, $errline, $errcontext);
     }
 
-    public function noticeThrowable(\Throwable $e, string $message = null): void
+    public function noticeThrowable(\Throwable $e, ?string $message = null): void
     {
         $this->logger->debug('Sending exception to New Relic', [
             'message' => $message,
@@ -133,7 +133,7 @@ class LoggingInteractorDecorator implements NewRelicInteractorInterface
         return $this->interactor->endTransaction($ignore);
     }
 
-    public function startTransaction(string $name = null, string $license = null): bool
+    public function startTransaction(?string $name = null, ?string $license = null): bool
     {
         $this->logger->debug('Starting a new New Relic transaction for app {name}', ['name' => $name]);
 
