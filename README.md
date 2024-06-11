@@ -1,11 +1,7 @@
-Ekino NewRelic Bundle
-=====================
+> [!IMPORTANT]
+> This bundle have been originally created by Ekino and can be found [here](https://github.com/ekino/EkinoNewRelicBundle). Due to lack of maintenance, we decided to fork it and here is the result.
 
-[![Build Status](https://secure.travis-ci.org/ekino/EkinoNewRelicBundle.png?branch=master)](http://travis-ci.org/ekino/EkinoNewRelicBundle)
-[![Latest Version](https://img.shields.io/github/release/ekino/EkinoNewRelicBundle.svg?style=flat-square)](https://github.com/ekino/EkinoNewRelicBundle/releases)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/ekino/EkinoNewRelicBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/ekino/EkinoNewRelicBundle)
-[![Quality Score](https://img.shields.io/scrutinizer/g/ekino/EkinoNewRelicBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/ekino/EkinoNewRelicBundle)
-[![Total Downloads](https://img.shields.io/packagist/dt/ekino/newrelic-bundle.svg?style=flat-square)](https://packagist.org/packages/ekino/newrelic-bundle)
+Tiime NewRelic Bundle
 
 This bundle integrates the NewRelic PHP API into Symfony. For more information about NewRelic, please visit http://newrelic.com. The built-in New Relic agent doesn't add as much Symfony integration as it claims. This bundle adds a lot more essentials. Here's a quick list:
 
@@ -35,39 +31,46 @@ This bundle integrates the NewRelic PHP API into Symfony. For more information a
 
 7. **Misc**: There are other useful configuration like your New Relic API Key, explicitly defining your app name instead of php.ini, notifying New Relic about new deployments via capifony, etc.
 
-
-![Ekino NewRelicBundle](https://dl.dropbox.com/s/bufb6f8o0end5xo/ekino_newrelic_bundle.png "Ekino NewRelicBundle")
-
-
-
 ## Installation
 
-### Step 0 : Install NewRelic
+Make sure Composer is installed globally, as explained in the
+[installation chapter](https://getcomposer.org/doc/00-intro.md)
+of the Composer documentation.
 
-review http://newrelic.com ...
+### Applications that use Symfony Flex
 
-### Step 1: add dependency
+Open a command console, enter your project directory and execute:
 
-```bash
-$ composer require ekino/newrelic-bundle
+```console
+composer require tiime/newrelic-bundle
 ```
 
-### Step 2 : Register the bundle
+### Applications that don't use Symfony Flex
 
-Then register the bundle with your kernel:
+#### Step 1: Download the Bundle
+
+Open a command console, enter your project directory and execute the
+following command to download the latest stable version of this bundle:
+
+```console
+composer require tiime/newrelic-bundle
+```
+
+#### Step 2: Enable the Bundle
+
+Then, enable the bundle by adding it to the list of registered bundles
+in the `config/bundles.php` file of your project:
 
 ```php
-<?php
+// config/bundles.php
 
-// in AppKernel::registerBundles()
-$bundles = array(
+return [
     // ...
-    new Ekino\NewRelicBundle\EkinoNewRelicBundle(),
-    // ...
-);
+    Tiime\NewRelicBundle\TiimeNewRelicBundle::class => ['all' => true],
+];
 ```
 
-### Step 3 : Configure the bundle
+### Configure the bundle
 
 In New Relic's web interface, make sure to get a valid (REST) API Key, not to be confused with your License key : New Relic Dashboard > Account settings > Integration > API Keys
 
@@ -84,7 +87,7 @@ ekino_new_relic:
     license_key:                          # New Relic license key (optional, default value is read from php.ini)
     xmit: false                           # if you want to record the metric data up to the point newrelic_set_appname is called, set this to true (default: false)
     logging: false                        # If true, logs all New Relic interactions to the Symfony log (default: false)
-    interactor: ~                         # The interactor service that is used. Setting enabled=false will override this value 
+    interactor: ~                         # The interactor service that is used. Setting enabled=false will override this value
     twig: true                            # Allows you to disable twig integration (falls back to class_exists(\Twig_Environment::class))
     exceptions: true                      # If true, sends exceptions to New Relic (default: true)
     deprecations: true                    # If true, reports deprecations to New Relic (default: true)
@@ -96,12 +99,12 @@ ekino_new_relic:
         transaction_naming_service: ~     # Transaction naming service (see below)
         ignored_routes: []                # No transaction recorded for this routes
         ignored_paths: []                 # No transaction recorded for this paths
-    monolog: 
+    monolog:
         enabled: false                    # When enabled, send application's logs to New Relic (default: disabled)
         channels: [app]                   # Channels to listen (default: null). [See Symfony's documentation](http://symfony.com/doc/current/logging/channels_handlers.html#yaml-specification)
         level: error                      # Report only logs higher than this level (see \Psr\Log\LogLevel) (default: error)
         service: app.my_custom_handler    # Define a custom log handler (default: ekino.new_relic.monolog_handler)
-    commands: 
+    commands:
         enabled: true                     # If true, logs CLI commands to New Relic as Background jobs (>2.3 only) (default: true)
         ignored_commands: []              # No transaction recorded for this commands (background tasks)
 ```
@@ -145,25 +148,21 @@ Options:
  --description  Text annotation for the deployment — notes for you
 ```
 
-The bundle provide a [Capifony](http://capifony.org) recipe to automate the deployment notifications (see `Resources/recipes/newrelic.rb`).
-
-It makes one request per `app_name`, due roll-up names are not supported by Data REST API.
-
 ## Interactor services
 
-The config key`ekino_new_relic.interactor` will accept a service ID to a service implementing `NewRelicInteractorInterface`. 
-This bundle comes with a few services that may be suitable for you. 
+The config key `ekino_new_relic.interactor` will accept a service ID to a service implementing `NewRelicInteractorInterface`.
+This bundle comes with a few services that may be suitable for you.
 
 | Configuration value | Description |
 | ------------------- | ----------- |
-| `Ekino\NewRelicBundle\NewRelic\AdaptiveInteractor` | This is the default interactor. It will check once per request if the NewRelic PHP extension is installed or not. It is a decorator for the `NewRelicInteractor` | 
-| `Ekino\NewRelicBundle\NewRelic\NewRelicInteractor` | This interactor communicates with NewRelic. It is the one decorator that actually does some work. | 
-| `Ekino\NewRelicBundle\NewRelic\BlackholeInteractor` | This interactor does nothing. | 
-| `auto` | This value will check if the NewRelic PHP extension is installed when you build your container. | 
+| `Ekino\NewRelicBundle\NewRelic\AdaptiveInteractor` | This is the default interactor. It will check once per request if the NewRelic PHP extension is installed or not. It is a decorator for the `NewRelicInteractor` |
+| `Ekino\NewRelicBundle\NewRelic\NewRelicInteractor` | This interactor communicates with NewRelic. It is the one decorator that actually does some work. |
+| `Ekino\NewRelicBundle\NewRelic\BlackholeInteractor` | This interactor does nothing. |
+| `auto` | This value will check if the NewRelic PHP extension is installed when you build your container. |
 
-Note that if you set `ekino_new_relic.enabled: false` you will always use the `BlackholeInteractor` no matter what value 
+Note that if you set `ekino_new_relic.enabled: false` you will always use the `BlackholeInteractor` no matter what value
 used for `ekino_new_relic.interactor`.
- 
+
 
 ## Flow of the Request
 

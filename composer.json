@@ -1,9 +1,9 @@
 {
-    "name": "ekino/newrelic-bundle",
+    "name": "tiime/newrelic-bundle",
     "type": "symfony-bundle",
-    "description": "Integrate New Relic into Symfony2",
-    "keywords": ["metric", "performance", "monitoring"],
-    "homepage": "https://github.com/ekino/EkinoNewRelicBundle",
+    "description": "Integrate New Relic into Symfony",
+    "keywords": ["metric", "performance", "monitoring", "newrelic"],
+    "homepage": "https://github.com/Tiime-Software/TiimeNewRelicBundle",
     "license": "MIT",
     "authors": [
         {
