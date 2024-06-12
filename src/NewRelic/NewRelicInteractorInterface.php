@@ -56,7 +56,7 @@ interface NewRelicInteractorInterface
     /**
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_add_custom_parameter}.
      */
-    public function addCustomParameter(string $name, string|int|float|bool $value): bool;
+    public function addCustomParameter(string $name, string|int|float|bool|null $value): bool;
 
     /**
      * Returns a New Relic Browser snippet to inject in the head of your HTML output.

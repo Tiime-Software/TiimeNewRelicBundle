@@ -58,7 +58,7 @@ class LoggingInteractorDecorator implements NewRelicInteractorInterface
         return $this->interactor->addCustomMetric($name, $value);
     }
 
-    public function addCustomParameter(string $name, string|int|float|bool $value): bool
+    public function addCustomParameter(string $name, string|int|float|bool|null $value): bool
     {
         $this->logger->debug('Adding custom New Relic parameters {name}: {value}', ['name' => $name, 'value' => $value]);
 

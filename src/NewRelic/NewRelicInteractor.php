@@ -38,7 +38,7 @@ class NewRelicInteractor implements NewRelicInteractorInterface
         return newrelic_custom_metric($name, $value);
     }
 
-    public function addCustomParameter(string $name, string|int|float|bool $value): bool
+    public function addCustomParameter(string $name, string|int|float|bool|null $value): bool
     {
         return newrelic_add_custom_parameter((string) $name, $value);
     }

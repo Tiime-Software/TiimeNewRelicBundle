@@ -106,7 +106,7 @@ class Config
         $this->customParameters = $customParameters;
     }
 
-    public function addCustomParameter(string $name, string|int|float|bool $value): void
+    public function addCustomParameter(string $name, string|int|float|bool|null $value): void
     {
         $this->customParameters[$name] = $value;
     }
