@@ -15,12 +15,6 @@ namespace Ekino\NewRelicBundle\NewRelic;
 
 /**
  * This is the service that talks to NewRelic.
- *
- * @method array getTraceMetadata()
- * @method array getLinkingMetadata()
- * @method bool  isSampled()
- * @method void  insertDistributedTracingHeaders(array &$headers)
- * @method void  acceptDistributedTraceHeaders(array $headers, string $transportType = 'HTTP')
  */
 interface NewRelicInteractorInterface
 {
@@ -48,6 +42,8 @@ interface NewRelicInteractorInterface
     /**
      * Record a custom event with the given name and attributes.
      *
+     * @param array<string, string|int|float|bool> $attributes
+     *
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_record_custom_event}
      */
     public function addCustomEvent(string $name, array $attributes): void;
@@ -61,10 +57,8 @@ interface NewRelicInteractorInterface
 
     /**
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_add_custom_parameter}.
-     *
-     * @param string|int|float $value should be a scalar
      */
-    public function addCustomParameter(string $name, $value): bool;
+    public function addCustomParameter(string $name, string|int|float|bool $value): bool;
 
     /**
      * Returns a New Relic Browser snippet to inject in the head of your HTML output.
@@ -158,6 +152,8 @@ interface NewRelicInteractorInterface
      *
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_record_datastore_segment}
      *
+     * @param array{product: string, collection?: string, operation?: string, host ?: string, portPathOrId?: string, databaseName?: string, query?: string, inputQueryLabel?: string, inputQuery?: string} $parameters
+     *
      * @return bool|mixed The return value of $func is returned. If an error occurs, false is returned.
      */
     public function recordDatastoreSegment(callable $func, array $parameters);
@@ -168,4 +164,26 @@ interface NewRelicInteractorInterface
      * {@link https://docs.newrelic.com/docs/agents/php-agent/php-agent-api/newrelic_set_user_attributes}
      */
     public function setUserAttributes(string $userValue, string $accountValue, string $productValue): bool;
+
+    /**
+     * @return array{trace_id: ?string, span_id: string}
+     */
+    public function getTraceMetadata(): array;
+
+    /**
+     * @return array<string, string|int|float|bool|null>
+     */
+    public function getLinkingMetadata(): array;
+
+    public function isSampled(): bool;
+
+    /**
+     * @param array<string, string|int|float|bool|null> $headers
+     */
+    public function insertDistributedTracingHeaders(array &$headers): void;
+
+    /**
+     * @param array<string, string|int|float|bool|null> $headers
+     */
+    public function acceptDistributedTraceHeaders(array $headers, string $transportType = 'HTTP'): void;
 }

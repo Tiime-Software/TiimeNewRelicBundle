@@ -19,14 +19,12 @@ use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 use Ekino\NewRelicBundle\TransactionNamingStrategy\TransactionNamingStrategyInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class RequestListenerTest extends TestCase
 {
-    public function testSubRequest()
+    public function testSubRequest(): void
     {
         $interactor = $this->getMockBuilder(NewRelicInteractorInterface::class)->getMock();
         $interactor->expects($this->never())->method('setTransactionName');
@@ -35,14 +33,13 @@ class RequestListenerTest extends TestCase
 
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
 
-        $eventClass = class_exists(RequestEvent::class) ? RequestEvent::class : GetResponseEvent::class;
-        $event = new $eventClass($kernel, new Request(), HttpKernelInterface::SUB_REQUEST, new Response());
+        $event = new RequestEvent($kernel, new Request(), HttpKernelInterface::SUB_REQUEST);
 
         $listener = new RequestListener(new Config('App name', 'Token'), $interactor, [], [], $namingStrategy);
         $listener->setApplicationName($event);
     }
 
-    public function testMasterRequest()
+    public function testMasterRequest(): void
     {
         $interactor = $this->getMockBuilder(NewRelicInteractorInterface::class)->getMock();
         $interactor->expects($this->once())->method('setTransactionName');
@@ -54,14 +51,13 @@ class RequestListenerTest extends TestCase
 
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
 
-        $eventClass = class_exists(RequestEvent::class) ? RequestEvent::class : GetResponseEvent::class;
-        $event = new $eventClass($kernel, new Request(), HttpKernelInterface::MAIN_REQUEST, new Response());
+        $event = new RequestEvent($kernel, new Request(), HttpKernelInterface::MAIN_REQUEST);
 
         $listener = new RequestListener(new Config('App name', 'Token'), $interactor, [], [], $namingStrategy);
         $listener->setTransactionName($event);
     }
 
-    public function testPathIsIgnored()
+    public function testPathIsIgnored(): void
     {
         $interactor = $this->getMockBuilder(NewRelicInteractorInterface::class)->getMock();
         $interactor->expects($this->once())->method('ignoreTransaction');
@@ -71,14 +67,13 @@ class RequestListenerTest extends TestCase
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
         $request = new Request([], [], [], [], [], ['REQUEST_URI' => '/ignored_path']);
 
-        $eventClass = class_exists(RequestEvent::class) ? RequestEvent::class : GetResponseEvent::class;
-        $event = new $eventClass($kernel, $request, HttpKernelInterface::MAIN_REQUEST, new Response());
+        $event = new RequestEvent($kernel, $request, HttpKernelInterface::MAIN_REQUEST);
 
         $listener = new RequestListener(new Config('App name', 'Token'), $interactor, [], ['/ignored_path'], $namingStrategy);
         $listener->setIgnoreTransaction($event);
     }
 
-    public function testRouteIsIgnored()
+    public function testRouteIsIgnored(): void
     {
         $interactor = $this->getMockBuilder(NewRelicInteractorInterface::class)->getMock();
         $interactor->expects($this->once())->method('ignoreTransaction');
@@ -88,14 +83,13 @@ class RequestListenerTest extends TestCase
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
         $request = new Request([], [], ['_route' => 'ignored_route']);
 
-        $eventClass = class_exists(RequestEvent::class) ? RequestEvent::class : GetResponseEvent::class;
-        $event = new $eventClass($kernel, $request, HttpKernelInterface::MAIN_REQUEST, new Response());
+        $event = new RequestEvent($kernel, $request, HttpKernelInterface::MAIN_REQUEST);
 
         $listener = new RequestListener(new Config('App name', 'Token'), $interactor, ['ignored_route'], [], $namingStrategy);
         $listener->setIgnoreTransaction($event);
     }
 
-    public function testSymfonyCacheEnabled()
+    public function testSymfonyCacheEnabled(): void
     {
         $interactor = $this->getMockBuilder(NewRelicInteractorInterface::class)->getMock();
         $interactor->expects($this->once())->method('startTransaction');
@@ -104,14 +98,13 @@ class RequestListenerTest extends TestCase
 
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
 
-        $eventClass = class_exists(RequestEvent::class) ? RequestEvent::class : GetResponseEvent::class;
-        $event = new $eventClass($kernel, new Request(), HttpKernelInterface::MAIN_REQUEST, new Response());
+        $event = new RequestEvent($kernel, new Request(), HttpKernelInterface::MAIN_REQUEST);
 
         $listener = new RequestListener(new Config('App name', 'Token'), $interactor, [], [], $namingStrategy, true);
         $listener->setApplicationName($event);
     }
 
-    public function testSymfonyCacheDisabled()
+    public function testSymfonyCacheDisabled(): void
     {
         $interactor = $this->getMockBuilder(NewRelicInteractorInterface::class)->getMock();
         $interactor->expects($this->never())->method('startTransaction');
@@ -120,8 +113,7 @@ class RequestListenerTest extends TestCase
 
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
 
-        $eventClass = class_exists(RequestEvent::class) ? RequestEvent::class : GetResponseEvent::class;
-        $event = new $eventClass($kernel, new Request(), HttpKernelInterface::MAIN_REQUEST, new Response());
+        $event = new RequestEvent($kernel, new Request(), HttpKernelInterface::MAIN_REQUEST);
 
         $listener = new RequestListener(new Config('App name', 'Token'), $interactor, [], [], $namingStrategy, false);
         $listener->setApplicationName($event);

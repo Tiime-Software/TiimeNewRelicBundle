@@ -16,19 +16,13 @@ namespace Ekino\NewRelicBundle\Tests\Twig;
 use Ekino\NewRelicBundle\NewRelic\Config;
 use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 use Ekino\NewRelicBundle\Twig\NewRelicExtension;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class NewRelicExtensionTest extends TestCase
 {
-    /**
-     * @var Config
-     */
-    private $newRelic;
-
-    /**
-     * @var NewRelicInteractorInterface
-     */
-    private $interactor;
+    private Config&MockObject $newRelic;
+    private NewRelicInteractorInterface&MockObject $interactor;
 
     protected function setUp(): void
     {
@@ -42,7 +36,7 @@ class NewRelicExtensionTest extends TestCase
     /**
      * Tests the initial values returned by state methods.
      */
-    public function testInitialSetup()
+    public function testInitialSetup(): void
     {
         $extension = new NewRelicExtension(
             $this->newRelic,
@@ -54,7 +48,7 @@ class NewRelicExtensionTest extends TestCase
         $this->assertFalse($extension->isUsed());
     }
 
-    public function testHeaderException()
+    public function testHeaderException(): void
     {
         $extension = new NewRelicExtension(
             $this->newRelic,
@@ -75,7 +69,7 @@ class NewRelicExtensionTest extends TestCase
         $extension->getNewrelicBrowserTimingHeader();
     }
 
-    public function testFooterException()
+    public function testFooterException(): void
     {
         $extension = new NewRelicExtension(
             $this->newRelic,
@@ -96,7 +90,7 @@ class NewRelicExtensionTest extends TestCase
         $extension->getNewrelicBrowserTimingHeader();
     }
 
-    public function testPreparingOfInteractor()
+    public function testPreparingOfInteractor(): void
     {
         $headerValue = '__HEADER__TIMING__';
         $footerValue = '__FOOTER__TIMING__';

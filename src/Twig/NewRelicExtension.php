@@ -23,20 +23,14 @@ use Twig\TwigFunction;
  */
 class NewRelicExtension extends AbstractExtension
 {
-    private $newRelic;
-    private $interactor;
-    private $instrument;
-    private $headerCalled = false;
-    private $footerCalled = false;
+    private bool $headerCalled = false;
+    private bool $footerCalled = false;
 
     public function __construct(
-        Config $newRelic,
-        NewRelicInteractorInterface $interactor,
-        bool $instrument = false
+        private readonly Config $newRelic,
+        private readonly NewRelicInteractorInterface $interactor,
+        private readonly bool $instrument = false
     ) {
-        $this->newRelic = $newRelic;
-        $this->interactor = $interactor;
-        $this->instrument = $instrument;
     }
 
     public function getFunctions(): array

@@ -18,30 +18,18 @@ use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 use Ekino\NewRelicBundle\Twig\NewRelicExtension;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class ResponseListener implements EventSubscriberInterface
 {
-    private $newRelic;
-    private $interactor;
-    private $instrument;
-    private $symfonyCache;
-    private $newRelicTwigExtension;
-
     public function __construct(
-        Config $newRelic,
-        NewRelicInteractorInterface $interactor,
-        bool $instrument = false,
-        bool $symfonyCache = false,
-        ?NewRelicExtension $newRelicTwigExtension = null
+        private Config $newRelic,
+        private NewRelicInteractorInterface $interactor,
+        private bool $instrument = false,
+        private bool $symfonyCache = false,
+        private ?NewRelicExtension $newRelicTwigExtension = null
     ) {
-        $this->newRelic = $newRelic;
-        $this->interactor = $interactor;
-        $this->instrument = $instrument;
-        $this->symfonyCache = $symfonyCache;
-        $this->newRelicTwigExtension = $newRelicTwigExtension;
     }
 
     public static function getSubscribedEvents(): array
@@ -53,11 +41,9 @@ class ResponseListener implements EventSubscriberInterface
         ];
     }
 
-    public function onKernelResponse(KernelResponseEvent $event): void
+    public function onKernelResponse(ResponseEvent $event): void
     {
-        $isMainRequest = method_exists($event, 'isMainRequest') ? $event->isMainRequest() : $event->isMasterRequest();
-
-        if (!$isMainRequest) {
+        if (!$event->isMainRequest()) {
             return;
         }
 
@@ -109,13 +95,5 @@ class ResponseListener implements EventSubscriberInterface
         if ($this->symfonyCache) {
             $this->interactor->endTransaction();
         }
-    }
-}
-
-if (!class_exists(KernelResponseEvent::class)) {
-    if (class_exists(ResponseEvent::class)) {
-        class_alias(ResponseEvent::class, KernelResponseEvent::class);
-    } else {
-        class_alias(FilterResponseEvent::class, KernelResponseEvent::class);
     }
 }

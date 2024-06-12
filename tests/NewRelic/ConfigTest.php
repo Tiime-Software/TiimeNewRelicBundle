@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    public function testGeneric()
+    public function testGeneric(): void
     {
         $newRelic = new Config('Ekino', 'XXX', null, false, [], 'api.host');
 
@@ -67,7 +67,7 @@ class ConfigTest extends TestCase
         $this->assertSame($expected, $newRelic->getCustomParameters());
     }
 
-    public function testDefaults()
+    public function testDefaults(): void
     {
         $newRelic = new Config('', '');
 

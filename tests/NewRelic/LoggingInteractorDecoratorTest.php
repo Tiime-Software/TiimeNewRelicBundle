@@ -21,9 +21,11 @@ use Psr\Log\LoggerInterface;
 class LoggingInteractorDecoratorTest extends TestCase
 {
     /**
+     * @param array<mixed> $arguments
+     *
      * @dataProvider provideMethods
      */
-    public function testGeneric(string $method, array $arguments, $return)
+    public function testGeneric(string $method, array $arguments, mixed $return): void
     {
         $logger = $this->createMock(LoggerInterface::class);
         $decorated = $this->createMock(LoggingInteractorDecorator::class);
@@ -41,7 +43,7 @@ class LoggingInteractorDecoratorTest extends TestCase
         $this->assertSame($return, $result);
     }
 
-    public function provideMethods()
+    public function provideMethods(): \Generator
     {
         $reflection = new \ReflectionClass(NewRelicInteractorInterface::class);
         foreach ($reflection->getMethods() as $method) {
@@ -62,13 +64,16 @@ class LoggingInteractorDecoratorTest extends TestCase
         }
     }
 
-    private function getTypeStub(?\ReflectionType $type)
+    private function getTypeStub(?\ReflectionType $type): mixed
     {
         if (null === $type) {
             return uniqid('', true);
         }
 
-        switch ($type->getName()) {
+        $typeName = preg_replace('/^\?/', '', (string) $type);
+        $typeName = explode('|', $typeName)[0];
+
+        switch ($typeName) {
             case 'string':
                 return uniqid('', true);
             case 'bool':
@@ -86,7 +91,7 @@ class LoggingInteractorDecoratorTest extends TestCase
             case 'array':
                 return array_fill(0, 2, uniqid('', true));
             default:
-                throw new \UnexpectedValueException('Unknown type. '.$type->getName());
+                throw new \UnexpectedValueException("Unknown type $typeName.");
         }
     }
 }

@@ -25,7 +25,7 @@ class MonologHandlerPassTest extends AbstractCompilerPassTestCase
         $container->addCompilerPass(new MonologHandlerPass());
     }
 
-    public function testProcessChannel()
+    public function testProcessChannel(): void
     {
         $this->container->setParameter('ekino.new_relic.monolog', ['level' => 100, 'channels' => ['type' => 'inclusive', 'elements' => ['app', 'foo']]]);
         $this->container->setParameter('ekino.new_relic.application_name', 'app');
@@ -40,7 +40,7 @@ class MonologHandlerPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall('monolog.logger.foo', 'pushHandler', [new Reference('ekino.new_relic.logs_handler')]);
     }
 
-    public function testProcessChannelAllChannels()
+    public function testProcessChannelAllChannels(): void
     {
         $this->container->setParameter('ekino.new_relic.monolog', ['level' => 100, 'channels' => null]);
         $this->container->setParameter('ekino.new_relic.application_name', 'app');
@@ -55,7 +55,7 @@ class MonologHandlerPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall('monolog.logger.foo', 'pushHandler', [new Reference('ekino.new_relic.logs_handler')]);
     }
 
-    public function testProcessChannelExcludeChannels()
+    public function testProcessChannelExcludeChannels(): void
     {
         $this->container->setParameter('ekino.new_relic.monolog', ['level' => 100, 'channels' => ['type' => 'exclusive', 'elements' => ['foo']]]);
         $this->container->setParameter('ekino.new_relic.application_name', 'app');

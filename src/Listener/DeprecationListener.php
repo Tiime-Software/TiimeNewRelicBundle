@@ -18,12 +18,11 @@ use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 
 class DeprecationListener
 {
-    private $isRegistered = false;
-    private $interactor;
+    private bool $isRegistered = false;
 
-    public function __construct(NewRelicInteractorInterface $interactor)
-    {
-        $this->interactor = $interactor;
+    public function __construct(
+        private readonly NewRelicInteractorInterface $interactor,
+    ) {
     }
 
     public function register(): void

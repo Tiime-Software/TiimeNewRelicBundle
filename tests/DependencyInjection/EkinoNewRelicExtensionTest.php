@@ -38,7 +38,7 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
         $this->setParameter('kernel.bundles', []);
     }
 
-    public function testDefaultConfiguration()
+    public function testDefaultConfiguration(): void
     {
         $this->load();
 
@@ -47,7 +47,7 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService(ExceptionListener::class);
     }
 
-    public function testAlternativeConfiguration()
+    public function testAlternativeConfiguration(): void
     {
         $this->load([
             'exceptions' => false,
@@ -60,14 +60,14 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderNotHasService(ExceptionListener::class);
     }
 
-    public function testDeprecation()
+    public function testDeprecation(): void
     {
         $this->load();
 
         $this->assertContainerBuilderHasService(DeprecationListener::class);
     }
 
-    public function testMonolog()
+    public function testMonolog(): void
     {
         $this->load(['monolog' => true]);
 
@@ -76,7 +76,7 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('ekino.new_relic.logs_handler');
     }
 
-    public function testMonologDisabled()
+    public function testMonologDisabled(): void
     {
         $this->load(['monolog' => false]);
 
@@ -86,7 +86,7 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
         );
     }
 
-    public function testConfigDisabled()
+    public function testConfigDisabled(): void
     {
         $this->load([
             'enabled' => false,
@@ -95,7 +95,7 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasAlias(NewRelicInteractorInterface::class, BlackholeInteractor::class);
     }
 
-    public function testConfigDisabledWithInteractor()
+    public function testConfigDisabledWithInteractor(): void
     {
         $this->load([
             'enabled' => false,
@@ -105,7 +105,7 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasAlias(NewRelicInteractorInterface::class, BlackholeInteractor::class);
     }
 
-    public function testConfigEnabledWithInteractor()
+    public function testConfigEnabledWithInteractor(): void
     {
         $this->load([
             'enabled' => true,

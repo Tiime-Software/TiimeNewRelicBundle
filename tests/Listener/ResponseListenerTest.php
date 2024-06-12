@@ -148,7 +148,7 @@ class ResponseListenerTest extends TestCase
     /**
      * @dataProvider providerOnKernelResponseOnlyInstrumentHTMLResponses
      */
-    public function testOnKernelResponseOnlyInstrumentHTMLResponses($content, $expectsSetContent, $contentType)
+    public function testOnKernelResponseOnlyInstrumentHTMLResponses(?string $content, ?string $expectsSetContent, string $contentType): void
     {
         $this->setupNoCustomMetricsOrParameters();
 
@@ -163,7 +163,10 @@ class ResponseListenerTest extends TestCase
         $object->onKernelResponse($event);
     }
 
-    public function providerOnKernelResponseOnlyInstrumentHTMLResponses()
+    /**
+     * @return array<array{?string, ?string, string}>
+     */
+    public function providerOnKernelResponseOnlyInstrumentHTMLResponses(): array
     {
         return [
             // unsupported content types
@@ -185,7 +188,7 @@ class ResponseListenerTest extends TestCase
         ];
     }
 
-    public function testInteractionWithTwigExtensionHeader()
+    public function testInteractionWithTwigExtensionHeader(): void
     {
         $this->newRelic->expects($this->never())->method('getCustomMetrics');
         $this->newRelic->expects($this->never())->method('getCustomParameters');
@@ -207,7 +210,7 @@ class ResponseListenerTest extends TestCase
         $object->onKernelResponse($event);
     }
 
-    public function testInteractionWithTwigExtensionFooter()
+    public function testInteractionWithTwigExtensionFooter(): void
     {
         $this->newRelic->expects($this->never())->method('getCustomMetrics');
         $this->newRelic->expects($this->never())->method('getCustomParameters');
@@ -229,7 +232,7 @@ class ResponseListenerTest extends TestCase
         $object->onKernelResponse($event);
     }
 
-    public function testInteractionWithTwigExtensionHeaderFooter()
+    public function testInteractionWithTwigExtensionHeaderFooter(): void
     {
         $this->newRelic->expects($this->never())->method('getCustomMetrics');
         $this->newRelic->expects($this->never())->method('getCustomParameters');
@@ -251,7 +254,7 @@ class ResponseListenerTest extends TestCase
         $object->onKernelResponse($event);
     }
 
-    private function setUpNoCustomMetricsOrParameters()
+    private function setUpNoCustomMetricsOrParameters(): void
     {
         $this->newRelic->expects($this->once())->method('getCustomEvents')->willReturn([]);
         $this->newRelic->expects($this->once())->method('getCustomMetrics')->willReturn([]);
@@ -262,7 +265,7 @@ class ResponseListenerTest extends TestCase
         $this->interactor->expects($this->never())->method('addCustomParameter');
     }
 
-    private function createRequestMock($instrumentEnabled = true): Request
+    private function createRequestMock(bool $instrumentEnabled = true): Request
     {
         $mock = $this->getMockBuilder(Request::class)
             ->setMethods(['get'])
@@ -274,7 +277,7 @@ class ResponseListenerTest extends TestCase
         return $mock;
     }
 
-    private function createResponseMock($content = null, $expectsSetContent = null, $contentType = 'text/html'): Response
+    private function createResponseMock(?string $content = null, ?string $expectsSetContent = null, string $contentType = 'text/html'): Response
     {
         $mock = $this->getMockBuilder(Response::class)
             ->setMethods(['get', 'getContent', 'setContent'])

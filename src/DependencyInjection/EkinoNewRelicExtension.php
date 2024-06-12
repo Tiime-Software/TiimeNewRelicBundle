@@ -84,7 +84,7 @@ class EkinoNewRelicExtension extends Extension
             $container->getDefinition(RequestListener::class)
                 ->setArguments(
                     [
-                        '$ignoreRoutes' => $config['http']['ignored_routes'],
+                        '$ignoredRoutes' => $config['http']['ignored_routes'],
                         '$ignoredPaths' => $config['http']['ignored_paths'],
                         '$symfonyCache' => $config['http']['using_symfony_cache'],
                     ]
@@ -132,6 +132,9 @@ class EkinoNewRelicExtension extends Extension
         }
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     private function getInteractorServiceId(array $config): string
     {
         if (!$config['enabled']) {
@@ -151,6 +154,9 @@ class EkinoNewRelicExtension extends Extension
         return $config['interactor'];
     }
 
+    /**
+     * @param array<string, mixed> $config
+     */
     private function getTransactionNamingServiceId(array $config): string
     {
         switch ($config['http']['transaction_naming']) {
