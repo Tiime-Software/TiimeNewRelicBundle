@@ -41,7 +41,7 @@ class BlackholeInteractor implements NewRelicInteractorInterface
         return true;
     }
 
-    public function addCustomParameter(string $name, string|int|float|bool $value): bool
+    public function addCustomParameter(string $name, string|int|float|bool|null $value): bool
     {
         return true;
     }
