@@ -3,15 +3,13 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\DependencyInjection;
+namespace Tiime\NewRelicBundle\DependencyInjection;
 
 use Psr\Log\LogLevel;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -23,7 +21,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('ekino_new_relic');
+        $treeBuilder = new TreeBuilder('tiime_new_relic');
 
         $treeBuilder->getRootNode()
             ->fixXmlConfig('deployment_name')
@@ -162,7 +160,7 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                         ->scalarNode('level')->defaultValue(LogLevel::ERROR)->end()
-                        ->scalarNode('service')->defaultValue('ekino.new_relic.monolog_handler')->end()
+                        ->scalarNode('service')->defaultValue('tiime.new_relic.monolog_handler')->end()
                     ->end()
                 ->end()
             ->end()

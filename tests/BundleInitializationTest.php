@@ -3,22 +3,20 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Tests;
+namespace Tiime\NewRelicBundle\Tests;
 
-use Ekino\NewRelicBundle\EkinoNewRelicBundle;
-use Ekino\NewRelicBundle\NewRelic\AdaptiveInteractor;
-use Ekino\NewRelicBundle\NewRelic\BlackholeInteractor;
-use Ekino\NewRelicBundle\NewRelic\NewRelicInteractor;
-use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 use PHPUnit\Framework\TestCase;
+use Tiime\NewRelicBundle\NewRelic\AdaptiveInteractor;
+use Tiime\NewRelicBundle\NewRelic\BlackholeInteractor;
+use Tiime\NewRelicBundle\NewRelic\NewRelicInteractor;
+use Tiime\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
+use Tiime\NewRelicBundle\TiimeNewRelicBundle;
 
 /**
  * Smoke test to see if the bundle can run.
@@ -29,7 +27,7 @@ class BundleInitializationTest extends TestCase
 {
     protected function getBundleClass(): string
     {
-        return EkinoNewRelicBundle::class;
+        return TiimeNewRelicBundle::class;
     }
 
     public function testInitBundle(): void

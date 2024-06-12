@@ -3,23 +3,21 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Tests\Listener;
+namespace Tiime\NewRelicBundle\Tests\Listener;
 
-use Ekino\NewRelicBundle\Listener\ExceptionListener;
-use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Tiime\NewRelicBundle\Listener\ExceptionListener;
+use Tiime\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 
 class ExceptionListenerTest extends TestCase
 {

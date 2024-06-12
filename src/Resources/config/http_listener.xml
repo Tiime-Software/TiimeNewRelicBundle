@@ -7,7 +7,7 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false" />
 
-        <service id="Ekino\NewRelicBundle\Listener\RequestListener"/>
-        <service id="Ekino\NewRelicBundle\Listener\ResponseListener"/>
+        <service id="Tiime\NewRelicBundle\Listener\RequestListener"/>
+        <service id="Tiime\NewRelicBundle\Listener\ResponseListener"/>
     </services>
 </container>

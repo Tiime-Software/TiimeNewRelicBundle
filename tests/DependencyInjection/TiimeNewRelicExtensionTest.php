@@ -3,32 +3,30 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Tests\DependencyInjection;
+namespace Tiime\NewRelicBundle\Tests\DependencyInjection;
 
-use Ekino\NewRelicBundle\DependencyInjection\EkinoNewRelicExtension;
-use Ekino\NewRelicBundle\Listener\CommandListener;
-use Ekino\NewRelicBundle\Listener\DeprecationListener;
-use Ekino\NewRelicBundle\Listener\ExceptionListener;
-use Ekino\NewRelicBundle\NewRelic\BlackholeInteractor;
-use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
-use Ekino\NewRelicBundle\Twig\NewRelicExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\ContainerHasParameterConstraint;
 use PHPUnit\Framework\Constraint\LogicalNot;
+use Tiime\NewRelicBundle\DependencyInjection\TiimeNewRelicExtension;
+use Tiime\NewRelicBundle\Listener\CommandListener;
+use Tiime\NewRelicBundle\Listener\DeprecationListener;
+use Tiime\NewRelicBundle\Listener\ExceptionListener;
+use Tiime\NewRelicBundle\NewRelic\BlackholeInteractor;
+use Tiime\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
+use Tiime\NewRelicBundle\Twig\NewRelicExtension;
 
-class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
+class TiimeNewRelicExtensionTest extends AbstractExtensionTestCase
 {
     protected function getContainerExtensions(): array
     {
-        return [new EkinoNewRelicExtension()];
+        return [new TiimeNewRelicExtension()];
     }
 
     protected function setUp(): void
@@ -71,9 +69,9 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
     {
         $this->load(['monolog' => true]);
 
-        $this->assertContainerBuilderHasParameter('ekino.new_relic.monolog');
-        $this->assertContainerBuilderHasParameter('ekino.new_relic.application_name');
-        $this->assertContainerBuilderHasService('ekino.new_relic.logs_handler');
+        $this->assertContainerBuilderHasParameter('tiime.new_relic.monolog');
+        $this->assertContainerBuilderHasParameter('tiime.new_relic.application_name');
+        $this->assertContainerBuilderHasService('tiime.new_relic.logs_handler');
     }
 
     public function testMonologDisabled(): void
@@ -82,7 +80,7 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
 
         self::assertThat(
             $this->container,
-            new LogicalNot(new ContainerHasParameterConstraint('ekino.new_relic.monolog', null, false))
+            new LogicalNot(new ContainerHasParameterConstraint('tiime.new_relic.monolog', null, false))
         );
     }
 
@@ -99,7 +97,7 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
     {
         $this->load([
             'enabled' => false,
-            'interactor' => 'ekino.new_relic.interactor.adaptive',
+            'interactor' => 'tiime.new_relic.interactor.adaptive',
         ]);
 
         $this->assertContainerBuilderHasAlias(NewRelicInteractorInterface::class, BlackholeInteractor::class);
@@ -109,9 +107,9 @@ class EkinoNewRelicExtensionTest extends AbstractExtensionTestCase
     {
         $this->load([
             'enabled' => true,
-            'interactor' => 'ekino.new_relic.interactor.adaptive',
+            'interactor' => 'tiime.new_relic.interactor.adaptive',
         ]);
 
-        $this->assertContainerBuilderHasAlias(NewRelicInteractorInterface::class, 'ekino.new_relic.interactor.adaptive');
+        $this->assertContainerBuilderHasAlias(NewRelicInteractorInterface::class, 'tiime.new_relic.interactor.adaptive');
     }
 }

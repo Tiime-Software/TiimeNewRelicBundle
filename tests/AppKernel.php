@@ -3,23 +3,21 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Tests;
+namespace Tiime\NewRelicBundle\Tests;
 
-use Ekino\NewRelicBundle\EkinoNewRelicBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollection;
+use Tiime\NewRelicBundle\TiimeNewRelicBundle;
 
 class AppKernel extends Kernel
 {
@@ -35,12 +33,12 @@ class AppKernel extends Kernel
 
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir().'/ekino/'.$this->cachePrefix;
+        return sys_get_temp_dir().'/tiime/'.$this->cachePrefix;
     }
 
     public function getLogDir(): string
     {
-        return sys_get_temp_dir().'/ekino/log';
+        return sys_get_temp_dir().'/tiime/log';
     }
 
     public function getProjectDir(): string
@@ -61,7 +59,7 @@ class AppKernel extends Kernel
     {
         return [
             new FrameworkBundle(),
-            new EkinoNewRelicBundle(),
+            new TiimeNewRelicBundle(),
         ];
     }
 
@@ -120,13 +118,13 @@ class AppKernel extends Kernel
             public function process(ContainerBuilder $container): void
             {
                 foreach ($container->getDefinitions() as $id => $definition) {
-                    if (preg_match('|Ekino.*|i', $id)) {
+                    if (preg_match('|Tiime.*|i', $id)) {
                         $definition->setPublic(true);
                     }
                 }
 
                 foreach ($container->getAliases() as $id => $alias) {
-                    if (preg_match('|Ekino.*|i', $id)) {
+                    if (preg_match('|Tiime.*|i', $id)) {
                         $alias->setPublic(true);
                     }
                 }

@@ -6,13 +6,13 @@
 
     <services>
         <defaults autowire="true" autoconfigure="true" public="false" />
-        <prototype namespace="Ekino\NewRelicBundle\Command\" resource="../../Command/*" />
-        <prototype namespace="Ekino\NewRelicBundle\NewRelic\" resource="../../NewRelic/*" />
-        <prototype namespace="Ekino\NewRelicBundle\TransactionNamingStrategy\" resource="../../TransactionNamingStrategy/*" />
+        <prototype namespace="Tiime\NewRelicBundle\Command\" resource="../../Command/*" />
+        <prototype namespace="Tiime\NewRelicBundle\NewRelic\" resource="../../NewRelic/*" />
+        <prototype namespace="Tiime\NewRelicBundle\TransactionNamingStrategy\" resource="../../TransactionNamingStrategy/*" />
 
-        <service id="Ekino\NewRelicBundle\NewRelic\AdaptiveInteractor">
-            <argument type="service" id="Ekino\NewRelicBundle\NewRelic\NewRelicInteractor" />
-            <argument type="service" id="Ekino\NewRelicBundle\NewRelic\BlackholeInteractor" />
+        <service id="Tiime\NewRelicBundle\NewRelic\AdaptiveInteractor">
+            <argument type="service" id="Tiime\NewRelicBundle\NewRelic\NewRelicInteractor" />
+            <argument type="service" id="Tiime\NewRelicBundle\NewRelic\BlackholeInteractor" />
         </service>
     </services>
 </container>

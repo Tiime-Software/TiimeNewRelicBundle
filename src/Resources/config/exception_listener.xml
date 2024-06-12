@@ -7,6 +7,6 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false" />
 
-        <service id="Ekino\NewRelicBundle\Listener\ExceptionListener"/>
+        <service id="Tiime\NewRelicBundle\Listener\ExceptionListener"/>
     </services>
 </container>

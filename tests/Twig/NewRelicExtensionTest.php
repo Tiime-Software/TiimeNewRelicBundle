@@ -3,21 +3,19 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Tests\Twig;
+namespace Tiime\NewRelicBundle\Tests\Twig;
 
-use Ekino\NewRelicBundle\NewRelic\Config;
-use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
-use Ekino\NewRelicBundle\Twig\NewRelicExtension;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Tiime\NewRelicBundle\NewRelic\Config;
+use Tiime\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
+use Tiime\NewRelicBundle\Twig\NewRelicExtension;
 
 class NewRelicExtensionTest extends TestCase
 {

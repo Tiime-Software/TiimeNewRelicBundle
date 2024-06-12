@@ -3,41 +3,39 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\DependencyInjection;
+namespace Tiime\NewRelicBundle\DependencyInjection;
 
-use Ekino\NewRelicBundle\Listener\CommandListener;
-use Ekino\NewRelicBundle\Listener\RequestListener;
-use Ekino\NewRelicBundle\Listener\ResponseListener;
-use Ekino\NewRelicBundle\NewRelic\AdaptiveInteractor;
-use Ekino\NewRelicBundle\NewRelic\BlackholeInteractor;
-use Ekino\NewRelicBundle\NewRelic\Config;
-use Ekino\NewRelicBundle\NewRelic\LoggingInteractorDecorator;
-use Ekino\NewRelicBundle\NewRelic\NewRelicInteractor;
-use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
-use Ekino\NewRelicBundle\TransactionNamingStrategy\ControllerNamingStrategy;
-use Ekino\NewRelicBundle\TransactionNamingStrategy\RouteNamingStrategy;
-use Ekino\NewRelicBundle\TransactionNamingStrategy\TransactionNamingStrategyInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Reference;
+use Tiime\NewRelicBundle\Listener\CommandListener;
+use Tiime\NewRelicBundle\Listener\RequestListener;
+use Tiime\NewRelicBundle\Listener\ResponseListener;
+use Tiime\NewRelicBundle\NewRelic\AdaptiveInteractor;
+use Tiime\NewRelicBundle\NewRelic\BlackholeInteractor;
+use Tiime\NewRelicBundle\NewRelic\Config;
+use Tiime\NewRelicBundle\NewRelic\LoggingInteractorDecorator;
+use Tiime\NewRelicBundle\NewRelic\NewRelicInteractor;
+use Tiime\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
+use Tiime\NewRelicBundle\TransactionNamingStrategy\ControllerNamingStrategy;
+use Tiime\NewRelicBundle\TransactionNamingStrategy\RouteNamingStrategy;
+use Tiime\NewRelicBundle\TransactionNamingStrategy\TransactionNamingStrategyInterface;
 
 /**
  * This is the class that loads and manages your bundle configuration.
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class EkinoNewRelicExtension extends Extension
+class TiimeNewRelicExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
@@ -126,9 +124,9 @@ class EkinoNewRelicExtension extends Extension
                 throw new \LogicException('The "symfony/monolog-bundle" package must be installed in order to use "monolog" option.');
             }
             $loader->load('monolog.xml');
-            $container->setParameter('ekino.new_relic.monolog', $config['monolog'] ?? []);
-            $container->setParameter('ekino.new_relic.application_name', $config['application_name']);
-            $container->setAlias('ekino.new_relic.logs_handler', $config['monolog']['service'])->setPublic(false);
+            $container->setParameter('tiime.new_relic.monolog', $config['monolog'] ?? []);
+            $container->setParameter('tiime.new_relic.application_name', $config['application_name']);
+            $container->setAlias('tiime.new_relic.logs_handler', $config['monolog']['service'])->setPublic(false);
         }
     }
 

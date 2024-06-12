@@ -3,20 +3,18 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Tests\DependencyInjection;
+namespace Tiime\NewRelicBundle\Tests\DependencyInjection;
 
-use Ekino\NewRelicBundle\DependencyInjection\Configuration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Definition\PrototypedArrayNode;
+use Tiime\NewRelicBundle\DependencyInjection\Configuration;
 
 class ConfigurationTest extends TestCase
 {
@@ -151,8 +149,8 @@ class ConfigurationTest extends TestCase
     {
         $processor = new Processor();
 
-        $config1 = $processor->processConfiguration(new Configuration(), ['ekino_new_relic' => ['deployment_name' => $deploymentNameConfig]]);
-        $config2 = $processor->processConfiguration(new Configuration(), ['ekino_new_relic' => ['deployment_names' => $deploymentNameConfig]]);
+        $config1 = $processor->processConfiguration(new Configuration(), ['tiime_new_relic' => ['deployment_name' => $deploymentNameConfig]]);
+        $config2 = $processor->processConfiguration(new Configuration(), ['tiime_new_relic' => ['deployment_names' => $deploymentNameConfig]]);
 
         $this->assertSame($expected, $config1['deployment_names']);
         $this->assertSame($expected, $config2['deployment_names']);
@@ -168,7 +166,7 @@ class ConfigurationTest extends TestCase
     {
         $processor = new Processor();
 
-        $config = $processor->processConfiguration(new Configuration(), ['ekino_new_relic' => ['http' => ['ignored_routes' => $ignoredRoutesConfig]]]);
+        $config = $processor->processConfiguration(new Configuration(), ['tiime_new_relic' => ['http' => ['ignored_routes' => $ignoredRoutesConfig]]]);
 
         $this->assertSame($expected, $config['http']['ignored_routes']);
     }
@@ -183,7 +181,7 @@ class ConfigurationTest extends TestCase
     {
         $processor = new Processor();
 
-        $config = $processor->processConfiguration(new Configuration(), ['ekino_new_relic' => ['http' => ['ignored_paths' => $ignoredPathsConfig]]]);
+        $config = $processor->processConfiguration(new Configuration(), ['tiime_new_relic' => ['http' => ['ignored_paths' => $ignoredPathsConfig]]]);
 
         $this->assertSame($expected, $config['http']['ignored_paths']);
     }
@@ -198,7 +196,7 @@ class ConfigurationTest extends TestCase
     {
         $processor = new Processor();
 
-        $config = $processor->processConfiguration(new Configuration(), ['ekino_new_relic' => ['commands' => ['ignored_commands' => $ignoredCommandsConfig]]]);
+        $config = $processor->processConfiguration(new Configuration(), ['tiime_new_relic' => ['commands' => ['ignored_commands' => $ignoredCommandsConfig]]]);
 
         $this->assertSame($expected, $config['commands']['ignored_commands']);
     }

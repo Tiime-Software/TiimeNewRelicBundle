@@ -3,15 +3,13 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\DependencyInjection\Compiler;
+namespace Tiime\NewRelicBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -22,16 +20,16 @@ class MonologHandlerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasParameter('ekino.new_relic.monolog') || !$container->hasDefinition('monolog.logger')) {
+        if (!$container->hasParameter('tiime.new_relic.monolog') || !$container->hasDefinition('monolog.logger')) {
             return;
         }
 
-        $configuration = $container->getParameter('ekino.new_relic.monolog');
-        if ($container->hasDefinition('ekino.new_relic.logs_handler') && $container->hasParameter('ekino.new_relic.application_name')) {
-            $container->findDefinition('ekino.new_relic.logs_handler')
+        $configuration = $container->getParameter('tiime.new_relic.monolog');
+        if ($container->hasDefinition('tiime.new_relic.logs_handler') && $container->hasParameter('tiime.new_relic.application_name')) {
+            $container->findDefinition('tiime.new_relic.logs_handler')
                 ->setArgument('$level', \is_int($configuration['level']) ? $configuration['level'] : \constant('Monolog\Logger::'.strtoupper($configuration['level'])))
                 ->setArgument('$bubble', true)
-                ->setArgument('$appName', $container->getParameter('ekino.new_relic.application_name'));
+                ->setArgument('$appName', $container->getParameter('tiime.new_relic.application_name'));
         }
 
         if (!isset($configuration['channels'])) {
@@ -49,7 +47,7 @@ class MonologHandlerPass implements CompilerPassInterface
                 $msg = 'NewRelicBundle configuration error: The logging channel "'.$channel.'" does not exist.';
                 throw new \InvalidArgumentException($msg, 0, $e);
             }
-            $def->addMethodCall('pushHandler', [new Reference('ekino.new_relic.logs_handler')]);
+            $def->addMethodCall('pushHandler', [new Reference('tiime.new_relic.logs_handler')]);
         }
     }
 
