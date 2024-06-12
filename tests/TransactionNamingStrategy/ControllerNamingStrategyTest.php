@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ControllerNamingStrategyTest extends TestCase
 {
-    public function testControllerAsString()
+    public function testControllerAsString(): void
     {
         $request = new Request();
         $request->attributes->set('_controller', 'SomeBundle:Some:SomeAction');
@@ -28,7 +28,7 @@ class ControllerNamingStrategyTest extends TestCase
         $this->assertSame('SomeBundle:Some:SomeAction', $strategy->getTransactionName($request));
     }
 
-    public function testControllerAsClosure()
+    public function testControllerAsClosure(): void
     {
         $request = new Request();
         $request->attributes->set('_controller', function () {
@@ -38,7 +38,7 @@ class ControllerNamingStrategyTest extends TestCase
         $this->assertSame('Closure controller', $strategy->getTransactionName($request));
     }
 
-    public function testControllerAsCallback()
+    public function testControllerAsCallback(): void
     {
         $request = new Request();
         $request->attributes->set('_controller', [$this, 'testControllerAsString']);
@@ -47,7 +47,7 @@ class ControllerNamingStrategyTest extends TestCase
         $this->assertSame('Callback controller: Ekino\NewRelicBundle\Tests\TransactionNamingStrategy\ControllerNamingStrategyTest::testControllerAsString()', $strategy->getTransactionName($request));
     }
 
-    public function testControllerUnknown()
+    public function testControllerUnknown(): void
     {
         $request = new Request();
 

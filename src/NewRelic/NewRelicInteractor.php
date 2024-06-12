@@ -40,7 +40,7 @@ class NewRelicInteractor implements NewRelicInteractorInterface
         return newrelic_custom_metric($name, $value);
     }
 
-    public function addCustomParameter(string $name, $value): bool
+    public function addCustomParameter(string $name, string|int|float|bool $value): bool
     {
         return newrelic_add_custom_parameter((string) $name, $value);
     }
@@ -62,7 +62,7 @@ class NewRelicInteractor implements NewRelicInteractorInterface
 
     public function noticeError(int $errno, string $errstr, ?string $errfile = null, ?int $errline = null, ?string $errcontext = null): void
     {
-        newrelic_notice_error($errno, $errstr, $errfile, $errline, $errcontext);
+        newrelic_notice_error((string) $errno, $errstr, $errfile, $errline, $errcontext);
     }
 
     public function noticeThrowable(\Throwable $e, ?string $message = null): void

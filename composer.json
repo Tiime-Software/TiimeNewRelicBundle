@@ -25,17 +25,13 @@
         "symfony/framework-bundle": "^5.4|^6.4|^7.0",
         "symfony/phpunit-bridge": "^7.1",
         "twig/twig": "^3.10",
-        "monolog/monolog": "^3.0"
+        "monolog/monolog": "^3.0",
+        "phpunit/phpunit": "^9.6"
     },
     "autoload": {
         "psr-4": { "Ekino\\NewRelicBundle\\": "src/" }
     },
     "autoload-dev": {
         "psr-4": { "Ekino\\NewRelicBundle\\Tests\\": "tests/" }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.0-dev"
-        }
     }
 }

@@ -43,7 +43,7 @@ class BlackholeInteractor implements NewRelicInteractorInterface
         return true;
     }
 
-    public function addCustomParameter(string $name, $value): bool
+    public function addCustomParameter(string $name, string|int|float|bool $value): bool
     {
         return true;
     }
@@ -123,7 +123,7 @@ class BlackholeInteractor implements NewRelicInteractorInterface
 
     public function getTraceMetadata(): array
     {
-        return [];
+        return ['trace_id' => null, 'span_id' => 'spanid'];
     }
 
     public function getLinkingMetadata(): array

@@ -18,8 +18,8 @@ use Psr\Log\NullLogger;
 
 class LoggingInteractorDecorator implements NewRelicInteractorInterface
 {
-    private $interactor;
-    private $logger;
+    private NewRelicInteractorInterface $interactor;
+    private LoggerInterface $logger;
 
     public function __construct(NewRelicInteractorInterface $interactor, ?LoggerInterface $logger = null)
     {
@@ -60,7 +60,7 @@ class LoggingInteractorDecorator implements NewRelicInteractorInterface
         return $this->interactor->addCustomMetric($name, $value);
     }
 
-    public function addCustomParameter(string $name, $value): bool
+    public function addCustomParameter(string $name, string|int|float|bool $value): bool
     {
         $this->logger->debug('Adding custom New Relic parameters {name}: {value}', ['name' => $name, 'value' => $value]);
 

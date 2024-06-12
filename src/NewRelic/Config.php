@@ -18,16 +18,35 @@ namespace Ekino\NewRelicBundle\NewRelic;
  */
 class Config
 {
-    private $name;
-    private $apiKey;
-    private $apiHost;
-    private $licenseKey;
-    private $xmit;
-    private $customEvents;
-    private $customMetrics;
-    private $customParameters;
-    private $deploymentNames;
+    private string $name;
+    private ?string $apiKey;
+    private ?string $apiHost;
+    private string $licenseKey;
+    private bool $xmit;
 
+    /**
+     * @var array<string, array<mixed>>
+     */
+    private array $customEvents;
+
+    /**
+     * @var array<string, float>
+     */
+    private array $customMetrics;
+
+    /**
+     * @var array<string, scalar>
+     */
+    private array $customParameters;
+
+    /**
+     * @var string[]
+     */
+    private array $deploymentNames;
+
+    /**
+     * @param string[] $deploymentNames
+     */
     public function __construct(?string $name, ?string $apiKey = null, ?string $licenseKey = null, bool $xmit = false, array $deploymentNames = [], ?string $apiHost = null)
     {
         $this->name = (!empty($name) ? $name : \ini_get('newrelic.appname')) ?: '';
@@ -41,40 +60,55 @@ class Config
         $this->customParameters = [];
     }
 
+    /**
+     * @param array<string, array<mixed>> $customEvents
+     */
     public function setCustomEvents(array $customEvents): void
     {
         $this->customEvents = $customEvents;
     }
 
+    /**
+     * @return array<string, array<mixed>>
+     */
     public function getCustomEvents(): array
     {
         return $this->customEvents;
     }
 
+    /**
+     * @param array<string, scalar> $attributes
+     */
     public function addCustomEvent(string $name, array $attributes): void
     {
         $this->customEvents[$name][] = $attributes;
     }
 
+    /**
+     * @param array<string, float> $customMetrics
+     */
     public function setCustomMetrics(array $customMetrics): void
     {
         $this->customMetrics = $customMetrics;
     }
 
+    /**
+     * @return array<string, float>
+     */
     public function getCustomMetrics(): array
     {
         return $this->customMetrics;
     }
 
+    /**
+     * @param array<string, scalar> $customParameters
+     */
     public function setCustomParameters(array $customParameters): void
     {
         $this->customParameters = $customParameters;
     }
 
-    /**
-     * @param string|int|float $value or any scalar value
-     */
-    public function addCustomParameter(string $name, $value): void
+    public function addCustomParameter(string $name, string|int|float|bool $value): void
     {
         $this->customParameters[$name] = $value;
     }
@@ -84,6 +118,9 @@ class Config
         $this->customMetrics[$name] = $value;
     }
 
+    /**
+     * @return array<string, scalar>
+     */
     public function getCustomParameters(): array
     {
         return $this->customParameters;

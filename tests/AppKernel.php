@@ -23,20 +23,11 @@ use Symfony\Component\Routing\RouteCollection;
 
 class AppKernel extends Kernel
 {
-    /**
-     * @var string
-     */
-    private $cachePrefix = '';
+    private string $cachePrefix = '';
 
-    /**
-     * @var string|null;
-     */
-    private $fakedProjectDir;
+    private ?string $fakedProjectDir = null;
 
-    /**
-     * @param string $cachePrefix
-     */
-    public function __construct($cachePrefix)
+    public function __construct(string $cachePrefix)
     {
         parent::__construct($cachePrefix, true);
         $this->cachePrefix = $cachePrefix;
@@ -59,11 +50,6 @@ class AppKernel extends Kernel
         }
 
         return $this->fakedProjectDir;
-    }
-
-    public function setRootDir(?string $rootDir): void
-    {
-        $this->rootDir = $rootDir;
     }
 
     public function setProjectDir(?string $projectDir): void

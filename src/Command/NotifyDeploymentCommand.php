@@ -25,15 +25,9 @@ class NotifyDeploymentCommand extends Command
     public const EXIT_UNAUTHORIZED = 2;
     public const EXIT_HTTP_ERROR = 3;
 
-    protected static $defaultName = 'newrelic:notify-deployment';
-
-    private $newrelic;
-
-    public function __construct(Config $newrelic)
+    public function __construct(private Config $newrelic)
     {
-        $this->newrelic = $newrelic;
-
-        parent::__construct();
+        parent::__construct('newrelic:notify-deployment');
     }
 
     protected function configure(): void
@@ -99,6 +93,9 @@ class NotifyDeploymentCommand extends Command
         return $exitCode;
     }
 
+    /**
+     * @return array{status: ?string, error: ?string}
+     */
     public function performRequest(string $api_key, string $payload, ?string $api_host = null): array
     {
         $headers = [

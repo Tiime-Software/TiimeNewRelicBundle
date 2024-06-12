@@ -18,13 +18,12 @@ use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class ExceptionListenerTest extends TestCase
 {
-    public function testOnKernelException()
+    public function testOnKernelException(): void
     {
         $exception = new \Exception('Boom');
 
@@ -34,14 +33,13 @@ class ExceptionListenerTest extends TestCase
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
         $request = new Request();
 
-        $eventClass = class_exists(ExceptionEvent::class) ? ExceptionEvent::class : GetResponseForExceptionEvent::class;
-        $event = new $eventClass($kernel, $request, HttpKernelInterface::SUB_REQUEST, $exception);
+        $event = new ExceptionEvent($kernel, $request, HttpKernelInterface::SUB_REQUEST, $exception);
 
         $listener = new ExceptionListener($interactor);
         $listener->onKernelException($event);
     }
 
-    public function testOnKernelExceptionWithHttp()
+    public function testOnKernelExceptionWithHttp(): void
     {
         $exception = new BadRequestHttpException('Boom');
 
@@ -51,8 +49,7 @@ class ExceptionListenerTest extends TestCase
         $kernel = $this->getMockBuilder(HttpKernelInterface::class)->getMock();
         $request = new Request();
 
-        $eventClass = class_exists(ExceptionEvent::class) ? ExceptionEvent::class : GetResponseForExceptionEvent::class;
-        $event = new $eventClass($kernel, $request, HttpKernelInterface::SUB_REQUEST, $exception);
+        $event = new ExceptionEvent($kernel, $request, HttpKernelInterface::SUB_REQUEST, $exception);
 
         $listener = new ExceptionListener($interactor);
         $listener->onKernelException($event);

@@ -12,9 +12,13 @@
     bootstrap="vendor/autoload.php"
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
-  <testsuites>
-    <testsuite name="Ekino New Relic Test Suite">
-      <directory>./tests</directory>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="Ekino New Relic Test Suite">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <listeners>
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
+    </listeners>
 </phpunit>

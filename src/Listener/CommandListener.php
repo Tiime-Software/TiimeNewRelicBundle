@@ -22,15 +22,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class CommandListener implements EventSubscriberInterface
 {
-    private $interactor;
-    private $config;
-    private $ignoredCommands;
-
-    public function __construct(Config $config, NewRelicInteractorInterface $interactor, array $ignoredCommands)
-    {
-        $this->config = $config;
-        $this->interactor = $interactor;
-        $this->ignoredCommands = $ignoredCommands;
+    /**
+     * @param string[] $ignoredCommands
+     */
+    public function __construct(
+        private readonly Config $config,
+        private readonly NewRelicInteractorInterface $interactor,
+        private readonly array $ignoredCommands,
+    ) {
     }
 
     public static function getSubscribedEvents(): array

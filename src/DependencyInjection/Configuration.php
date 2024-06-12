@@ -24,13 +24,8 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('ekino_new_relic');
-        if (method_exists(TreeBuilder::class, 'getRootNode')) {
-            $rootNode = $treeBuilder->getRootNode();
-        } else {
-            $rootNode = $treeBuilder->root('ekino_new_relic');
-        }
 
-        $rootNode
+        $treeBuilder->getRootNode()
             ->fixXmlConfig('deployment_name')
             ->children()
                 ->booleanNode('enabled')->defaultTrue()->end()
