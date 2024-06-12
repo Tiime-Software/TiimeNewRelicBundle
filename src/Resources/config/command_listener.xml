@@ -7,6 +7,6 @@
     <services>
         <defaults autowire="true" autoconfigure="true" public="false" />
 
-        <service id="Ekino\NewRelicBundle\Listener\CommandListener"/>
+        <service id="Tiime\NewRelicBundle\Listener\CommandListener"/>
     </services>
 </container>

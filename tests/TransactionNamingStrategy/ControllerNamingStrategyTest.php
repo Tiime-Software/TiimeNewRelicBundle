@@ -3,19 +3,17 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Tests\TransactionNamingStrategy;
+namespace Tiime\NewRelicBundle\Tests\TransactionNamingStrategy;
 
-use Ekino\NewRelicBundle\TransactionNamingStrategy\ControllerNamingStrategy;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Tiime\NewRelicBundle\TransactionNamingStrategy\ControllerNamingStrategy;
 
 class ControllerNamingStrategyTest extends TestCase
 {
@@ -44,7 +42,7 @@ class ControllerNamingStrategyTest extends TestCase
         $request->attributes->set('_controller', [$this, 'testControllerAsString']);
 
         $strategy = new ControllerNamingStrategy();
-        $this->assertSame('Callback controller: Ekino\NewRelicBundle\Tests\TransactionNamingStrategy\ControllerNamingStrategyTest::testControllerAsString()', $strategy->getTransactionName($request));
+        $this->assertSame('Callback controller: Tiime\NewRelicBundle\Tests\TransactionNamingStrategy\ControllerNamingStrategyTest::testControllerAsString()', $strategy->getTransactionName($request));
     }
 
     public function testControllerUnknown(): void

@@ -6,7 +6,7 @@
 
     <services>
         <defaults autowire="true" autoconfigure="true" public="false" />
-        <prototype namespace="Ekino\NewRelicBundle\Twig\" resource="../../Twig/*" />
+        <prototype namespace="Tiime\NewRelicBundle\Twig\" resource="../../Twig/*" />
 
     </services>
 </container>

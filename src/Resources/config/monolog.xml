@@ -6,9 +6,9 @@
 
     <services>
         <defaults autowire="true" autoconfigure="true" public="false" />
-        <prototype namespace="Ekino\NewRelicBundle\Logging\" resource="../../Logging/*" />
+        <prototype namespace="Tiime\NewRelicBundle\Logging\" resource="../../Logging/*" />
 
         <!-- id must be defined to not override custom configuration of `Monolog\Handler\NewRelicHandler` -->
-        <service id="ekino.new_relic.monolog_handler" class="Monolog\Handler\NewRelicHandler" />
+        <service id="tiime.new_relic.monolog_handler" class="Monolog\Handler\NewRelicHandler" />
     </services>
 </container>

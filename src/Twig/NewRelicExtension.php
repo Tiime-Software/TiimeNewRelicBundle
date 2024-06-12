@@ -3,18 +3,16 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Twig;
+namespace Tiime\NewRelicBundle\Twig;
 
-use Ekino\NewRelicBundle\NewRelic\Config;
-use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
+use Tiime\NewRelicBundle\NewRelic\Config;
+use Tiime\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -36,8 +34,8 @@ class NewRelicExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('ekino_newrelic_browser_timing_header', [$this, 'getNewrelicBrowserTimingHeader'], ['is_safe' => ['html']]),
-            new TwigFunction('ekino_newrelic_browser_timing_footer', [$this, 'getNewrelicBrowserTimingFooter'], ['is_safe' => ['html']]),
+            new TwigFunction('tiime_newrelic_browser_timing_header', [$this, 'getNewrelicBrowserTimingHeader'], ['is_safe' => ['html']]),
+            new TwigFunction('tiime_newrelic_browser_timing_footer', [$this, 'getNewrelicBrowserTimingFooter'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -47,7 +45,7 @@ class NewRelicExtension extends AbstractExtension
     public function getNewrelicBrowserTimingHeader(): string
     {
         if ($this->isHeaderCalled()) {
-            throw new \RuntimeException('Function "ekino_newrelic_browser_timing_header" has already been called');
+            throw new \RuntimeException('Function "tiime_newrelic_browser_timing_header" has already been called');
         }
 
         $this->prepareInteractor();
@@ -63,7 +61,7 @@ class NewRelicExtension extends AbstractExtension
     public function getNewrelicBrowserTimingFooter(): string
     {
         if ($this->isFooterCalled()) {
-            throw new \RuntimeException('Function "ekino_newrelic_browser_timing_footer" has already been called');
+            throw new \RuntimeException('Function "tiime_newrelic_browser_timing_footer" has already been called');
         }
 
         if (false === $this->isHeaderCalled()) {

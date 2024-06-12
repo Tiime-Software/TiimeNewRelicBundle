@@ -3,26 +3,24 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Tests\NewRelic;
+namespace Tiime\NewRelicBundle\Tests\NewRelic;
 
-use Ekino\NewRelicBundle\NewRelic\Config;
 use PHPUnit\Framework\TestCase;
+use Tiime\NewRelicBundle\NewRelic\Config;
 
 class ConfigTest extends TestCase
 {
     public function testGeneric(): void
     {
-        $newRelic = new Config('Ekino', 'XXX', null, false, [], 'api.host');
+        $newRelic = new Config('Tiime', 'XXX', null, false, [], 'api.host');
 
-        $this->assertSame('Ekino', $newRelic->getName());
+        $this->assertSame('Tiime', $newRelic->getName());
         $this->assertSame('XXX', $newRelic->getApiKey());
         $this->assertSame('api.host', $newRelic->getApiHost());
 

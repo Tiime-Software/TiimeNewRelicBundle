@@ -3,20 +3,18 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Ekino New Relic bundle.
- *
- * (c) Ekino - Thomas Rabaix <thomas.rabaix@ekino.com>
+ * This file is part of Tiime New Relic bundle.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Ekino\NewRelicBundle\Tests\NewRelic;
+namespace Tiime\NewRelicBundle\Tests\NewRelic;
 
-use Ekino\NewRelicBundle\NewRelic\LoggingInteractorDecorator;
-use Ekino\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
+use Tiime\NewRelicBundle\NewRelic\LoggingInteractorDecorator;
+use Tiime\NewRelicBundle\NewRelic\NewRelicInteractorInterface;
 
 class LoggingInteractorDecoratorTest extends TestCase
 {

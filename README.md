@@ -77,7 +77,7 @@ In New Relic's web interface, make sure to get a valid (REST) API Key, not to be
 ```yaml
 # app/config/config.yml
 
-ekino_new_relic:
+tiime_new_relic:
     enabled: true                         # Defaults to true
     application_name: Awesome Application # default value in newrelic is "PHP Application", or whatever is set
                                           # as php ini-value
@@ -102,8 +102,8 @@ ekino_new_relic:
     monolog:
         enabled: false                    # When enabled, send application's logs to New Relic (default: disabled)
         channels: [app]                   # Channels to listen (default: null). [See Symfony's documentation](http://symfony.com/doc/current/logging/channels_handlers.html#yaml-specification)
-        level: error                      # Report only logs higher than this level (see \Psr\Log\LogLevel) (default: error)
-        service: app.my_custom_handler    # Define a custom log handler (default: ekino.new_relic.monolog_handler)
+        level: error                      # Report only logs higher than this level (see \Psr\Log\LogLevel) (default: error)
+        service: app.my_custom_handler    # Define a custom log handler (default: tiime.new_relic.monolog_handler)
     commands:
         enabled: true                     # If true, logs CLI commands to New Relic as Background jobs (>2.3 only) (default: true)
         ignored_commands: []              # No transaction recorded for this commands (background tasks)
@@ -121,7 +121,7 @@ If enhanced RUM instrumentation is enabled, you can *disable* instrumentation fo
 
 The bundle comes with two built-in transaction naming strategies. `route` and `controller`, naming the New Relic transaction after the route or controller respectively. However, the bundle supports custom transaction naming strategies through the `service` configuration option. If you have selected the `service` configuration option, you must pass the name of your own transaction naming service as the `transaction_naming_service` configuration option.
 
-The transaction naming service class must implement the `Ekino\NewRelicBundle\TransactionNamingStrategy\TransactionNamingStrategyInterface` interface. For more information on creating your own services, see the Symfony documentation on [Creating/Configuring Services in the Container](http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container).
+The transaction naming service class must implement the `Tiime\NewRelicBundle\TransactionNamingStrategy\TransactionNamingStrategyInterface` interface. For more information on creating your own services, see the Symfony documentation on [Creating/Configuring Services in the Container](http://symfony.com/doc/current/book/service_container.html#creating-configuring-services-in-the-container).
 
 ## Symfony HTTP Cache
 
@@ -150,18 +150,18 @@ Options:
 
 ## Interactor services
 
-The config key `ekino_new_relic.interactor` will accept a service ID to a service implementing `NewRelicInteractorInterface`.
+The config key `tiime_new_relic.interactor` will accept a service ID to a service implementing `NewRelicInteractorInterface`.
 This bundle comes with a few services that may be suitable for you.
 
 | Configuration value | Description |
 | ------------------- | ----------- |
-| `Ekino\NewRelicBundle\NewRelic\AdaptiveInteractor` | This is the default interactor. It will check once per request if the NewRelic PHP extension is installed or not. It is a decorator for the `NewRelicInteractor` |
-| `Ekino\NewRelicBundle\NewRelic\NewRelicInteractor` | This interactor communicates with NewRelic. It is the one decorator that actually does some work. |
-| `Ekino\NewRelicBundle\NewRelic\BlackholeInteractor` | This interactor does nothing. |
+| `Tiime\NewRelicBundle\NewRelic\AdaptiveInteractor` | This is the default interactor. It will check once per request if the NewRelic PHP extension is installed or not. It is a decorator for the `NewRelicInteractor` |
+| `Tiime\NewRelicBundle\NewRelic\NewRelicInteractor` | This interactor communicates with NewRelic. It is the one decorator that actually does some work. |
+| `Tiime\NewRelicBundle\NewRelic\BlackholeInteractor` | This interactor does nothing. |
 | `auto` | This value will check if the NewRelic PHP extension is installed when you build your container. |
 
-Note that if you set `ekino_new_relic.enabled: false` you will always use the `BlackholeInteractor` no matter what value
-used for `ekino_new_relic.interactor`.
+Note that if you set `tiime_new_relic.enabled: false` you will always use the `BlackholeInteractor` no matter what value
+used for `tiime_new_relic.interactor`.
 
 
 ## Flow of the Request

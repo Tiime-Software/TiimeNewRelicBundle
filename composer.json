@@ -10,6 +10,10 @@
             "name": "Thomas Rabaix",
             "email": "thomas.rabaix@ekino.com",
             "homepage": "http://ekino.com"
+        },
+        {
+            "name": "Olivier Dolbeau",
+            "email": "olivier@bbnt.me"
         }
     ],
     "require": {
@@ -29,9 +33,9 @@
         "phpunit/phpunit": "^9.6"
     },
     "autoload": {
-        "psr-4": { "Ekino\\NewRelicBundle\\": "src/" }
+        "psr-4": { "Tiime\\NewRelicBundle\\": "src/" }
     },
     "autoload-dev": {
-        "psr-4": { "Ekino\\NewRelicBundle\\Tests\\": "tests/" }
+        "psr-4": { "Tiime\\NewRelicBundle\\Tests\\": "tests/" }
     }
 }
