@@ -71,18 +71,18 @@ class NotifyDeploymentCommand extends Command
             switch ($response['status']) {
                 case 200:
                 case 201:
-                    $output->writeLn(sprintf("Recorded deployment to '%s' (%s)", $appName, $input->getOption('description') ?: date('r')));
+                    $output->writeLn(\sprintf("Recorded deployment to '%s' (%s)", $appName, $input->getOption('description') ?: date('r')));
                     break;
                 case 403:
-                    $output->writeLn(sprintf("<error>Deployment not recorded to '%s': API key invalid</error>", $appName));
+                    $output->writeLn(\sprintf("<error>Deployment not recorded to '%s': API key invalid</error>", $appName));
                     $exitCode = self::EXIT_UNAUTHORIZED;
                     break;
                 case null:
-                    $output->writeLn(sprintf("<error>Deployment not recorded to '%s': Did not understand response</error>", $appName));
+                    $output->writeLn(\sprintf("<error>Deployment not recorded to '%s': Did not understand response</error>", $appName));
                     $exitCode = self::EXIT_HTTP_ERROR;
                     break;
                 default:
-                    $output->writeLn(sprintf("<error>Deployment not recorded to '%s': Received HTTP status %d</error>", $appName, $response['status']));
+                    $output->writeLn(\sprintf("<error>Deployment not recorded to '%s': Received HTTP status %d</error>", $appName, $response['status']));
                     $exitCode = self::EXIT_HTTP_ERROR;
                     break;
             }
@@ -97,7 +97,7 @@ class NotifyDeploymentCommand extends Command
     public function performRequest(string $api_key, string $payload, ?string $api_host = null): array
     {
         $headers = [
-            sprintf('x-api-key: %s', $api_key),
+            \sprintf('x-api-key: %s', $api_key),
             'Content-type: application/x-www-form-urlencoded',
         ];
 
@@ -111,7 +111,7 @@ class NotifyDeploymentCommand extends Command
         ];
 
         $level = error_reporting(0);
-        $content = file_get_contents(sprintf('https://%s/deployments.xml', $api_host ?? 'api.newrelic.com'), false, stream_context_create($context));
+        $content = file_get_contents(\sprintf('https://%s/deployments.xml', $api_host ?? 'api.newrelic.com'), false, stream_context_create($context));
         error_reporting($level);
         if (false === $content) {
             $error = error_get_last();

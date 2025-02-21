@@ -27,7 +27,7 @@ class NewRelicExtension extends AbstractExtension
     public function __construct(
         private readonly Config $newRelic,
         private readonly NewRelicInteractorInterface $interactor,
-        private readonly bool $instrument = false
+        private readonly bool $instrument = false,
     ) {
     }
 

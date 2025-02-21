@@ -91,7 +91,7 @@ class LoggingInteractorDecorator implements NewRelicInteractorInterface
         string $errstr,
         ?string $errfile = null,
         ?int $errline = null,
-        ?string $errcontext = null
+        ?string $errcontext = null,
     ): void {
         $this->logger->debug('Sending notice error to New Relic', [
             'error_code' => $errno,

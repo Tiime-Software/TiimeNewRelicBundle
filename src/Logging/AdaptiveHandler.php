@@ -22,7 +22,7 @@ class AdaptiveHandler extends NewRelicHandler
         bool $bubble = true,
         ?string $appName = null,
         bool $explodeArrays = false,
-        ?string $transactionName = null
+        ?string $transactionName = null,
     ) {
         parent::__construct($level, $bubble, $appName, $explodeArrays, $transactionName);
     }

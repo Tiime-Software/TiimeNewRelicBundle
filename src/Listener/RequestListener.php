@@ -31,7 +31,7 @@ class RequestListener implements EventSubscriberInterface
         private array $ignoredRoutes,
         private array $ignoredPaths,
         private TransactionNamingStrategyInterface $transactionNamingStrategy,
-        private bool $symfonyCache = false
+        private bool $symfonyCache = false,
     ) {
     }
 
