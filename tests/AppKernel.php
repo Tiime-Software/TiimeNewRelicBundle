@@ -100,7 +100,7 @@ class AppKernel extends Kernel
     {
         $container = parent::buildContainer();
 
-        $container->addCompilerPass(new class() implements CompilerPassInterface {
+        $container->addCompilerPass(new class implements CompilerPassInterface {
             public function process(ContainerBuilder $container): void
             {
                 foreach ($container->getDefinitions() as $id => $definition) {

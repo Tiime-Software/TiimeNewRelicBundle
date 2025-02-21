@@ -70,7 +70,7 @@ class BlackholeInteractor implements NewRelicInteractorInterface
         string $errstr,
         ?string $errfile = null,
         ?int $errline = null,
-        ?string $errcontext = null
+        ?string $errcontext = null,
     ): void {
     }
 

@@ -169,7 +169,7 @@ class TiimeNewRelicExtension extends Extension
 
                 return $config['http']['transaction_naming_service'];
             default:
-                throw new \InvalidArgumentException(sprintf('Invalid transaction naming scheme "%s", must be "route", "controller" or "service".', $config['http']['transaction_naming']));
+                throw new \InvalidArgumentException(\sprintf('Invalid transaction naming scheme "%s", must be "route", "controller" or "service".', $config['http']['transaction_naming']));
         }
     }
 }
