@@ -31,7 +31,7 @@ class LoggingInteractorDecoratorTest extends TestCase
 
         $logger->expects($this->once())->method('debug');
         $call = $decorated->expects($this->once())->method($method)
-            ->with(...$arguments);
+            ->with(...array_values($arguments));
         if (null !== $return) {
             $call->willReturn($return);
         }
