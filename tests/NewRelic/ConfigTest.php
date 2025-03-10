@@ -69,7 +69,6 @@ class ConfigTest extends TestCase
     {
         $newRelic = new Config('', '');
 
-        $this->assertNotNull($newRelic->getName());
         $this->assertSame(\ini_get('newrelic.appname') ?: '', $newRelic->getName());
 
         $this->assertNotNull($newRelic->getLicenseKey());
