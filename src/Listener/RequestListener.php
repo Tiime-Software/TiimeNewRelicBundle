@@ -86,7 +86,7 @@ class RequestListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        if (\in_array($request->get('_route'), $this->ignoredRoutes, true)) {
+        if (\in_array($request->attributes->get('_route'), $this->ignoredRoutes, true)) {
             $this->interactor->ignoreTransaction();
         }
 

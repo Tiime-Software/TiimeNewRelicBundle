@@ -20,6 +20,6 @@ class RouteNamingStrategy implements TransactionNamingStrategyInterface
 {
     public function getTransactionName(Request $request): string
     {
-        return $request->get('_route') ?: 'Unknown Symfony route';
+        return $request->attributes->get('_route') ?: 'Unknown Symfony route';
     }
 }
