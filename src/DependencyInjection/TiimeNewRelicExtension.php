@@ -42,8 +42,8 @@ class TiimeNewRelicExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $loader = new Loader\PhpFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.php');
 
         $container->setAlias(NewRelicInteractorInterface::class, $this->getInteractorServiceId($config))->setPublic(false);
         $container->setAlias(TransactionNamingStrategyInterface::class, $this->getTransactionNamingServiceId($config))->setPublic(false);
@@ -78,7 +78,7 @@ class TiimeNewRelicExtension extends Extension
             );
 
         if ($config['http']['enabled']) {
-            $loader->load('http_listener.xml');
+            $loader->load('http_listener.php');
             $container->getDefinition(RequestListener::class)
                 ->setArguments(
                     [
@@ -98,7 +98,7 @@ class TiimeNewRelicExtension extends Extension
         }
 
         if ($config['commands']['enabled']) {
-            $loader->load('command_listener.xml');
+            $loader->load('command_listener.php');
             $container->getDefinition(CommandListener::class)
                 ->setArguments(
                     [
@@ -108,22 +108,22 @@ class TiimeNewRelicExtension extends Extension
         }
 
         if ($config['exceptions']['enabled']) {
-            $loader->load('exception_listener.xml');
+            $loader->load('exception_listener.php');
         }
 
         if ($config['deprecations']['enabled']) {
-            $loader->load('deprecation_listener.xml');
+            $loader->load('deprecation_listener.php');
         }
 
         if ($config['twig']) {
-            $loader->load('twig.xml');
+            $loader->load('twig.php');
         }
 
         if ($config['enabled'] && $config['monolog']['enabled']) {
             if (!class_exists(\Monolog\Handler\NewRelicHandler::class)) {
                 throw new \LogicException('The "symfony/monolog-bundle" package must be installed in order to use "monolog" option.');
             }
-            $loader->load('monolog.xml');
+            $loader->load('monolog.php');
             $container->setParameter('tiime.new_relic.monolog', $config['monolog'] ?? []);
             $container->setParameter('tiime.new_relic.application_name', $config['application_name']);
             $container->setAlias('tiime.new_relic.logs_handler', $config['monolog']['service'])->setPublic(false);
