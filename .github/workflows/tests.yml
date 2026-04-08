@@ -10,23 +10,19 @@ jobs:
       matrix:
         include:
           # Lowest Deps
-          - php: 8.2
-            symfony-require: 5.4.*
-            composer-flags: '--prefer-stable --prefer-lowest'
-          # LTS with latest stable PHP
-          - php: 8.2
-            symfony-require: 6.4.*
-            composer-flags: '--prefer-stable'
-          # Active release
           - php: 8.3
-            symfony-require: 7.1.*
+            symfony-version: 7.1.*
             composer-flags: '--prefer-stable --ignore-platform-req=php+'
-          # Development release
-          - php: nightly
-            symfony-require: 7.1.*@dev
-            composer-flags: '--ignore-platform-req=php+'
-            stability: dev
-            can-fail: true
+          # Active release
+          - php: 8.4
+            symfony-version: 7.1.*
+            composer-flags: '--prefer-stable --ignore-platform-req=php+'
+          - php: 8.4
+            symfony-version: 7.2.*
+            composer-flags: '--prefer-stable --ignore-platform-req=php+'
+          - php: 8.4
+            symfony-version: 7.3.*
+            composer-flags: '--prefer-stable --ignore-platform-req=php+'
       fail-fast: false
 
     steps:
