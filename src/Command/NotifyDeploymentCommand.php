@@ -19,11 +19,11 @@ use Tiime\NewRelicBundle\NewRelic\Config;
 
 class NotifyDeploymentCommand extends Command
 {
-    public const EXIT_NO_APP_NAMES = 1;
-    public const EXIT_UNAUTHORIZED = 2;
-    public const EXIT_HTTP_ERROR = 3;
+    public const int EXIT_NO_APP_NAMES = 1;
+    public const int EXIT_UNAUTHORIZED = 2;
+    public const int EXIT_HTTP_ERROR = 3;
 
-    public function __construct(private Config $newrelic)
+    public function __construct(private readonly Config $newrelic)
     {
         parent::__construct('newrelic:notify-deployment');
     }
