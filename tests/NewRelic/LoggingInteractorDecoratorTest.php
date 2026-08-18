@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Tiime\NewRelicBundle\Tests\NewRelic;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Tiime\NewRelicBundle\NewRelic\LoggingInteractorDecorator;
@@ -20,9 +21,8 @@ class LoggingInteractorDecoratorTest extends TestCase
 {
     /**
      * @param array<mixed> $arguments
-     *
-     * @dataProvider provideMethods
      */
+    #[DataProvider('provideMethods')]
     public function testGeneric(string $method, array $arguments, mixed $return): void
     {
         $logger = $this->createMock(LoggerInterface::class);
@@ -41,7 +41,7 @@ class LoggingInteractorDecoratorTest extends TestCase
         $this->assertSame($return, $result);
     }
 
-    public function provideMethods(): \Generator
+    public static function provideMethods(): \Generator
     {
         $reflection = new \ReflectionClass(NewRelicInteractorInterface::class);
         foreach ($reflection->getMethods() as $method) {
@@ -52,17 +52,17 @@ class LoggingInteractorDecoratorTest extends TestCase
                 continue;
             }
 
-            $arguments = array_map(function (\ReflectionParameter $parameter) {
-                return $this->getTypeStub($parameter->getType());
+            $arguments = array_map(static function (\ReflectionParameter $parameter) {
+                return self::getTypeStub($parameter->getType());
             }, $method->getParameters());
 
-            $return = $method->hasReturnType() ? $this->getTypeStub($method->getReturnType()) : null;
+            $return = $method->hasReturnType() ? self::getTypeStub($method->getReturnType()) : null;
 
             yield [$method->getName(), $arguments, $return];
         }
     }
 
-    private function getTypeStub(?\ReflectionType $type): mixed
+    private static function getTypeStub(?\ReflectionType $type): mixed
     {
         if (null === $type) {
             return uniqid('', true);

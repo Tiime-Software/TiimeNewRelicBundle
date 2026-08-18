@@ -1,4 +1,5 @@
 .php_cs.cache
+.phpunit.cache
 /composer.lock
 /vendor
 /tools/**/vendor

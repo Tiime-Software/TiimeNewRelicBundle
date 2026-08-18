@@ -44,11 +44,13 @@ class CommandListenerTest extends TestCase
         $interactor->expects($this->once())->method('setTransactionName')->with($this->equalTo('test:newrelic'));
         $interactor->expects($this->once())->method('enableBackgroundJob');
 
-        $interactor->expects($this->exactly(4))->method('addCustomParameter')->withConsecutive(
-            ['--foo', true],
-            ['--foobar[0]', 'baz'],
-            ['--foobar[1]', 'baz_2'],
-            ['name', 'bar']
+        $interactor->expects($this->exactly(4))->method('addCustomParameter')->willReturnCallback(
+            $this->sequentialAssertionCallback([
+                ['--foo', true],
+                ['--foobar[0]', 'baz'],
+                ['--foobar[1]', 'baz_2'],
+                ['name', 'bar'],
+            ], true)
         );
 
         $command = new Command('test:newrelic');
@@ -113,5 +115,21 @@ class CommandListenerTest extends TestCase
 
         $listener = new CommandListener($newrelic, $interactor, ['test:exception']);
         $listener->onConsoleError($event);
+    }
+
+    /**
+     * @param array<int, array<int, mixed>> $expectedCalls
+     */
+    private function sequentialAssertionCallback(array $expectedCalls, mixed $returnValue = null): \Closure
+    {
+        $index = 0;
+
+        return static function (...$arguments) use (&$index, $expectedCalls, $returnValue): mixed {
+            self::assertArrayHasKey($index, $expectedCalls);
+            self::assertSame($expectedCalls[$index], $arguments);
+            ++$index;
+
+            return $returnValue;
+        };
     }
 }

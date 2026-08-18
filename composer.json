@@ -25,12 +25,12 @@
         "symfony/http-kernel": "^7.4|^8.0"
     },
     "require-dev": {
-        "matthiasnoback/symfony-dependency-injection-test": "^5.1",
+        "matthiasnoback/symfony-dependency-injection-test": "^6.3",
         "symfony/framework-bundle": "^7.4|^8.0",
         "symfony/phpunit-bridge": "^7.4|^8.0",
         "twig/twig": "^3.10",
         "monolog/monolog": "^3.0",
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^11.5"
     },
     "autoload": {
         "psr-4": { "Tiime\\NewRelicBundle\\": "src/" }
