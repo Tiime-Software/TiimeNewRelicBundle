@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Tiime\NewRelicBundle\Tests\DependencyInjection;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\Definition\PrototypedArrayNode;
@@ -142,9 +143,8 @@ class ConfigurationTest extends TestCase
     /**
      * @param string|string[] $deploymentNameConfig
      * @param string[]        $expected
-     *
-     * @dataProvider deploymentNamesProvider
      */
+    #[DataProvider('deploymentNamesProvider')]
     public function testDeploymentNames(string|array $deploymentNameConfig, array $expected): void
     {
         $processor = new Processor();
@@ -159,9 +159,8 @@ class ConfigurationTest extends TestCase
     /**
      * @param string|string[] $ignoredRoutesConfig
      * @param string[]        $expected
-     *
-     * @dataProvider ignoredRoutesProvider
      */
+    #[DataProvider('ignoredRoutesProvider')]
     public function testIgnoreRoutes(string|array $ignoredRoutesConfig, array $expected): void
     {
         $processor = new Processor();
@@ -174,9 +173,8 @@ class ConfigurationTest extends TestCase
     /**
      * @param string|string[] $ignoredPathsConfig
      * @param string[]        $expected
-     *
-     * @dataProvider ignoredPathsProvider
      */
+    #[DataProvider('ignoredPathsProvider')]
     public function testIgnorePaths(string|array $ignoredPathsConfig, array $expected): void
     {
         $processor = new Processor();
@@ -189,9 +187,8 @@ class ConfigurationTest extends TestCase
     /**
      * @param string|string[] $ignoredCommandsConfig
      * @param string[]        $expected
-     *
-     * @dataProvider ignoredCommandsProvider
      */
+    #[DataProvider('ignoredCommandsProvider')]
     public function testIgnoreCommands(string|array $ignoredCommandsConfig, array $expected): void
     {
         $processor = new Processor();

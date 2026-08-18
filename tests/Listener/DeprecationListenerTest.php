@@ -27,7 +27,8 @@ class DeprecationListenerTest extends TestCase
 
         $listener = new DeprecationListener($interactor);
 
-        set_error_handler(function () { return false; });
+        set_error_handler(static fn () => false);
+
         try {
             $listener->register();
             @trigger_error('This is a deprecation', \E_USER_DEPRECATED);
@@ -44,7 +45,8 @@ class DeprecationListenerTest extends TestCase
 
         $listener = new DeprecationListener($interactor);
 
-        set_error_handler(function () { return false; });
+        set_error_handler(static fn () => false);
+
         $e = error_reporting(0);
         try {
             $listener->register();
@@ -63,7 +65,8 @@ class DeprecationListenerTest extends TestCase
 
         $listener = new DeprecationListener($interactor);
 
-        set_error_handler(function () { return false; });
+        set_error_handler(static fn () => false);
+
         try {
             $listener->register();
             @trigger_error('This is a notice', \E_USER_NOTICE);
@@ -100,7 +103,8 @@ class DeprecationListenerTest extends TestCase
 
         $listener = new DeprecationListener($interactor);
 
-        set_error_handler(function () { return false; });
+        set_error_handler(static fn () => false);
+
         try {
             $listener->register();
             $listener->unregister();

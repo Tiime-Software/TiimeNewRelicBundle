@@ -29,8 +29,7 @@ class ControllerNamingStrategyTest extends TestCase
     public function testControllerAsClosure(): void
     {
         $request = new Request();
-        $request->attributes->set('_controller', function () {
-        });
+        $request->attributes->set('_controller', static fn () => null);
 
         $strategy = new ControllerNamingStrategy();
         $this->assertSame('Closure controller', $strategy->getTransactionName($request));
